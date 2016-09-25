@@ -16,13 +16,14 @@ void updateScene(int value) {
 	PTMReader leitorFundo = PTMReader();
 	leitorFundo.ler("C:\\Geralt-de-Rivia.ptm");
 	imagem = leitorFundo.getImage();
-	
 	int xPersonagem = 0;
 	int yPersonagem = 0;
+
 	PTMReader leitorPersonagem = PTMReader();
 	leitorPersonagem.ler("C:\\Sully.ptm");
 	Image aux = leitorPersonagem.getImage();
-	Image personagem(64,64);
+	Image personagem(64, 64);
+
 	for (int x = inicioPersonagem * 64; x < (inicioPersonagem * 64) + 64; x++) {
 		for (int y = 128; y < 192; y++) {
 			personagem.setPixel(aux.getPixel(x, y), xPersonagem, yPersonagem);
@@ -54,7 +55,7 @@ void updateScene(int value) {
 	else {
 		posicaoPersonagemX -= 25;
 	}
-	
+
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 	glDrawPixels(imagem.getWidth(), imagem.getHeight(), GL_BGRA_EXT, GL_UNSIGNED_BYTE,
 		imagem.getPixels());
@@ -65,11 +66,6 @@ void updateScene(int value) {
 
 void display(void)
 {
-	/*for (int i = 0; i < 80; i++) {
-		for (int j = 0; j < 80; j++) {
-			printf("Posicao %d:%d cor = %d", i, j, imagem.getPixel(i,j));
-		}
-	}*/	
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 	glDrawPixels(imagem.getWidth(), imagem.getHeight(), GL_BGRA_EXT, GL_UNSIGNED_BYTE,
 		imagem.getPixels());
@@ -86,21 +82,12 @@ void init(void)
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(0.0, 1.0, 0.0, 1.0, -1.0, 1.0);
-	
 
 	PTMReader leitorFundo = PTMReader();
 	leitorFundo.ler("C:\\Geralt-de-Rivia.ptm");
-	//PTMReader leitorAviao = PTMReader();
-	//leitorAviao.ler("C:\\aviao.ptm");
-
-	//imagem = leitorFundo.getImage();
 	Image fundo = leitorFundo.getImage();
-	//Image aviao = leitorAviao.getImage();
 
 	imagem = fundo;
-	
-	
-	
 }
 
 /*

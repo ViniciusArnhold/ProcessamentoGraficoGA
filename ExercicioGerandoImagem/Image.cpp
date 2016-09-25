@@ -34,7 +34,6 @@ int Image::getPixel(int x, int y) {
 }
 
 void Image::setPixel(int a, int r, int g, int b, int x, int y) {
-	//unsigned long int aux = (a << 24) | (r << 16) | (g << 8) | (b);
 	pixels[x + y*width] = (a << 24) | (r << 16) | (g << 8) | (b);
 }
 unsigned int* Image::getPixels() {

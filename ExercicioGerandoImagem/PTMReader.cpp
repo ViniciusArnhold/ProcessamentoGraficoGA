@@ -39,6 +39,7 @@ void PTMReader::ler(char* caminho)
 
 #pragma region Codigo confiavel
 	if (input) {
+
 		//Tamanho arquivo
 		char textBuffer[256];
 
@@ -60,7 +61,7 @@ void PTMReader::ler(char* caminho)
 		cout << "Numero de cores: " << textBuffer << endl;
 
 		cout << endl <<
-			"  ---------------------  " << endl;
+				"  ---------------------  " << endl;
 		cout << "Iniciando leitura binaria" << endl;
 		cout << "  ---------------------  " << endl << endl;
 
@@ -70,7 +71,7 @@ void PTMReader::ler(char* caminho)
 		char * buffer = new char[altura*largura * 4];
 		input.read(buffer, altura*largura * 4);
 
-		int larL = largura-1;
+		int larL = largura - 1;
 		int altL = 0;
 
 		int a = 0;
@@ -81,20 +82,16 @@ void PTMReader::ler(char* caminho)
 		int alt = 0;
 		int lar = 0;
 		int i = 0;
-			for (int y = altura - 1; y > 0; y--) {
-				for (int x = 0; x < largura; x++) {
-					b = 0xff & buffer[i++];//aaaaaa
-					a = 0xff & buffer[i++];//rrr
-					r = 0xff & buffer[i++];//gg
-					g = 0xff & buffer[i++];//b
-
-					img.setPixel(a, r, g, b, x, y);
-					//cout << i << "  -  "<< r << g << b<<"quebra" <<"/n"<< endl;
-				}
+		for (int y = altura - 1; y > 0; y--) {
+			for (int x = 0; x < largura; x++) {
+				b = 0xff & buffer[i++];//aaaaaa
+				a = 0xff & buffer[i++];//rrr
+				r = 0xff & buffer[i++];//gg
+				g = 0xff & buffer[i++];//b
+				img.setPixel(a, r, g, b, x, y);
 			}
+		}
 
-		cout << "Acabou de leer";
+		cout << "Arquivo " << caminho << "terminou de ser lido.";
 	}
-
-	//std::cin.get();
 }
