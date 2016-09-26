@@ -110,11 +110,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Animation.h" />
     <ClInclude Include="hello.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="PTMReader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Animation.cpp" />
     <ClCompile Include="hello.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="PTMReader.cpp" />

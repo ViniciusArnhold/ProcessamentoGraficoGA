@@ -3,7 +3,7 @@
 
 
 Image::Image(int largura, int altura) {
-	width = largura; 
+	width = largura;
 	height = altura;
 	pixels = new unsigned int[width*height];
 }
@@ -13,6 +13,11 @@ Image::Image() {
 	height = 0;
 }
 
+Image getImage() const{
+	return *this;
+}
+
+
 void Image::setWidth(int w) {
 	width = w;
 }
@@ -20,6 +25,7 @@ void Image::setWidth(int w) {
 void Image::setHeight(int h) {
 	height = h;
 }
+
 
 void Image::calcular() {
 	pixels = new unsigned int[width*height];
@@ -48,16 +54,28 @@ int Image::getHeight() {
 	return height;
 }
 
+Image Image::subImage(Image *src, int startx, int starty) {
+	int reset = 0;
+	for (int x = 0; x < src->getWidth; x++) {
+		for (int y = 0; y <  src->getHeight; y++) {
+			src->setPixel*(getPixel(startx, starty), x, y);
+				starty++;
+		}
+		startx++;
+	}
+	return getImage();
+}
+
 void Image::plot(Image sobreposta, int posicaoX, int posicaoY) {
 
-	int xSobreposta=0;
-	int ySobreposta=0;
+	int xSobreposta = 0;
+	int ySobreposta = 0;
 
-	for (int x = posicaoX; x < sobreposta.width+posicaoX; x++) {
-		for (int y = posicaoY; y < posicaoY+sobreposta.height; y++) {
+	for (int x = posicaoX; x < sobreposta.width + posicaoX; x++) {
+		for (int y = posicaoY; y < posicaoY + sobreposta.height; y++) {
 			int pixelSobreposta = sobreposta.getPixel(xSobreposta, ySobreposta);
 			int alfa = (pixelSobreposta >> 24) & 0xff;
-			if ( alfa == 0) {
+			if (alfa == 0) {
 			}
 			else {
 				if (alfa == 255) {
@@ -68,12 +86,12 @@ void Image::plot(Image sobreposta, int posicaoX, int posicaoY) {
 				}
 			}
 			ySobreposta++;
-			
+
 		}
 		ySobreposta = 0;
 		xSobreposta++;
 	}
-	
+
 }
 
 int Image::calcularPixels(int sobreposta, int fundo) {

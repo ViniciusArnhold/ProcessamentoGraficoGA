@@ -12,10 +12,13 @@ public:
 	unsigned int* getPixels();
 	int getWidth();
 	int getHeight();
+	Image subImage(Image *src, int startx, int starty);
 	void setWidth(int w);
 	void setHeight(int h);
 	void calcular();
-	void plot(Image sobreposta, int posicaoX , int posicaoY);
+	void plot(Image sobreposta, int posicaoX, int posicaoY);
 	int calcularPixels(int sobreposta, int fundo);
-	
+	Image getImage() const {
+		return *this;
+	}
 };
