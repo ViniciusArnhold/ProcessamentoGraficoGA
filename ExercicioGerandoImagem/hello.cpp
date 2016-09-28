@@ -5,14 +5,14 @@
 #include <stdlib.h>
 #include "Image.h"
 #include "PTMReader.h"
+#include <iostream>
+using namespace std;
 
 //Core
 /*int inicioPersonagem = 0;
 int posicaoPersonagemX = 200;
 int sentido = 0;*/
 
-//Fundo
-Image imagem;
 
 //Sprites
 int numSpritesLargura = 4;
@@ -23,58 +23,41 @@ int heightSprites = 0;
 int xSprite = 0;
 int ySprite = 0;
 
+Image imagem;
+Image sprite;
+
 
 void updateScene(int value) {
-	PTMReader leitorFundo = PTMReader();
-	leitorFundo.ler("F:\\geralt.ptm");
-	imagem = leitorFundo.getImage();
-
-	PTMReader leitorPersonagem = PTMReader();
-	leitorPersonagem.ler("F:\Sully\\Sully.ptm");
-	Image sprite = leitorPersonagem.getImage();
-	Image impressao = imagem.getImage();
+	
+	Image impressao = imagem.clone();
 
 
 	widthSprites = floor(sprite.getWidth() / numSpritesLargura);
-	heightSprites = floor(sprite.getHeight() / numSpritesLargura);
+	heightSprites = floor(sprite.getHeight() / numSpritesAltura);
 
-	impressao.plot(impressao.subImage
-		(&sprite, xSprite*widthSprites, ySprite*heightSprites), 0, 0);
+	Image personagem1(64, 64);
 
-	(xSprite + 1) > numSpritesLargura ? xSprite = 0 : xSprite++;
-	(ySprite + 1) > numSpritesAltura ? ySprite = 0 : ySprite++;
+	sprite.subImage(&personagem1, xSprite*widthSprites, ySprite*heightSprites);
 
-	/*for (int x = inicioPersonagem * 64; x < (inicioPersonagem * 64) + 64; x++) {
-		for (int y = 128; y < 192; y++) {
-			personagem.setPixel(aux.getPixel(x, y), xPersonagem, yPersonagem);
-			yPersonagem++;
+	impressao.plot(personagem1, 50, 50);
+
+	if (ySprite == numSpritesAltura - 1 && xSprite == numSpritesLargura - 1) {
+		ySprite = 0;
+		xSprite = 0;
+	}
+	else if (xSprite == numSpritesLargura - 1) {
+			xSprite = 0;
+			ySprite++;
+	}
+		else {
+			xSprite++;
 		}
-		yPersonagem = 0;
-		xPersonagem++;
-	}
-	if (inicioPersonagem == 3) {
-		inicioPersonagem = 0;
-	}
-	else {
-		inicioPersonagem++;
-	}
-	imagem.plot(personagem, posicaoPersonagemX, 50);
+	
+	
+	//(xSprite + 1) > numSpritesLargura ? xSprite = 0 : xSprite++;
+	//(ySprite + 1) > numSpritesAltura ? ySprite = 0 : xSprite==0 ? ySprite++: ySprite=ySprite;
 
-	if (posicaoPersonagemX > 399) {
-		sentido = 1;
-	}
-	else {
-		if (posicaoPersonagemX < 201) {
-			sentido = 0;
-		}
-	}
-
-	if (sentido == 0) {
-		posicaoPersonagemX += 25;
-	}
-	else {
-		posicaoPersonagemX -= 25;
-	}*/
+	cout << xSprite << " " << ySprite<<endl<<widthSprites<<" "<<heightSprites<<endl;
 
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 	glDrawPixels(impressao.getWidth(), impressao.getHeight(), GL_BGRA_EXT, GL_UNSIGNED_BYTE,
@@ -104,10 +87,12 @@ void init(void)
 	glOrtho(0.0, 1.0, 0.0, 1.0, -1.0, 1.0);
 
 	PTMReader leitorFundo = PTMReader();
-	leitorFundo.ler("C:\\Geralt-de-Rivia.ptm");
-	Image fundo = leitorFundo.getImage();
+	leitorFundo.ler("C:\\Teste1.ptm");
+	imagem = leitorFundo.getImage();
 
-	imagem = fundo;
+	PTMReader leitorPersonagem = PTMReader();
+	leitorPersonagem.ler("C:\\Sully.ptm");
+	sprite = leitorPersonagem.getImage();
 }
 
 /*

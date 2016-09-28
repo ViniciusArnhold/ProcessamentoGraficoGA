@@ -12,7 +12,7 @@ public:
 	unsigned int* getPixels();
 	int getWidth();
 	int getHeight();
-	Image subImage(Image *src, int startx, int starty);
+	void subImage(Image *src, int startx, int starty);
 	void setWidth(int w);
 	void setHeight(int h);
 	void calcular();
@@ -21,4 +21,5 @@ public:
 	Image getImage() const {
 		return *this;
 	}
+	Image clone();
 };

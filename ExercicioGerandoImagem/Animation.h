@@ -7,7 +7,7 @@ class Animation
 	int quadroAtual;
 public:
 	Animation();
-	Image nextQuadro();
+	void nextQuadro();
 	void getQuadroAtual();
 };
 

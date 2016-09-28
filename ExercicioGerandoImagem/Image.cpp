@@ -13,10 +13,6 @@ Image::Image() {
 	height = 0;
 }
 
-Image getImage() const{
-	return *this;
-}
-
 
 void Image::setWidth(int w) {
 	width = w;
@@ -54,16 +50,28 @@ int Image::getHeight() {
 	return height;
 }
 
-Image Image::subImage(Image *src, int startx, int starty) {
-	int reset = 0;
-	for (int x = 0; x < src->getWidth; x++) {
-		for (int y = 0; y <  src->getHeight; y++) {
-			src->setPixel*(getPixel(startx, starty), x, y);
-				starty++;
+Image Image::clone() {
+	Image aux(getWidth(), getHeight());
+	
+	for (int x = 0; x < getWidth(); x++) {
+		for (int y = 0; y < getHeight(); y++) {
+			aux.setPixel(getPixel(x, y), x, y);
+		}
+	}
+	return aux;
+	
+}
+
+void Image::subImage(Image *src, int startx, int starty) {
+	int memoryStartY = starty;
+	for (int x = 0; x < src->getWidth(); x++) {
+		for (int y = 0; y <  src->getHeight(); y++) {
+			src->setPixel(getPixel(startx, starty), x, y);
+			starty++;
 		}
 		startx++;
+		starty = memoryStartY;
 	}
-	return getImage();
 }
 
 void Image::plot(Image sobreposta, int posicaoX, int posicaoY) {
