@@ -11,6 +11,6 @@ class Animation
 public:
 	Animation();
 	void addFrame(Image* img);
-	Image getFrame(int index);
+	Image* getFrame(int index);
 };
 

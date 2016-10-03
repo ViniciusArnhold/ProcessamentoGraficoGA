@@ -4,16 +4,17 @@
 
 Animation::Animation()
 {
+	vector<Image*> frames;
+	int frameCount;
 }
 
 void Animation::addFrame(Image * img)
 {
-	//TODO Implementar
+	frames.push_back(img);
 }
 
-Image Animation::getFrame(int index)
+Image* Animation::getFrame(int index)
 {
-	//TODO Implementar
-	return Image();
+	return frames.at(index);
 }
 

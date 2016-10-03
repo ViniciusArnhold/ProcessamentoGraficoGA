@@ -4,10 +4,22 @@
 
 Layer::Layer()
 {
+	float rateX;
+	float rateY;
+	float posX;
+	float posY;
+	Image background;
+	vector<GameObject*> elements;
 }
 
 void Layer::scroll(bool right)
 {
+	if (right) {
+
+	}
+	else {//left
+
+	}
 	//TODO Implementar
 }
 

@@ -11,7 +11,7 @@ class Layer
 	float posX;
 	float posY;
 	Image background;
-	vector<Layer*> layers;
+	vector<GameObject*> elements;
 
 public:
 	Layer();
