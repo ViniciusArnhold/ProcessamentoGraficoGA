@@ -6,12 +6,14 @@ Animation::Animation()
 {
 }
 
-void Animation::nextQuadro()
+void Animation::addFrame(Image * img)
 {
-	
+	//TODO Implementar
 }
 
-void Animation::getQuadroAtual()
+Image Animation::getFrame(int index)
 {
+	//TODO Implementar
+	return Image();
 }
 

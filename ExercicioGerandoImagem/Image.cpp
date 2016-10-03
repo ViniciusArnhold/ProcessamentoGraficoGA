@@ -74,6 +74,11 @@ void Image::subImage(Image *src, int startx, int starty) {
 	}
 }
 
+void Image::plotInto(Image * dest, int posX, int posY, char zBuffer[], char z)
+{
+	//TODO Implementar
+}
+
 void Image::plot(Image sobreposta, int posicaoX, int posicaoY) {
 
 	int xSobreposta = 0;

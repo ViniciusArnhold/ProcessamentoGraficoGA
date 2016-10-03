@@ -1,8 +1,6 @@
 #pragma once
 #pragma once
-class hello
+class Main
 {
 public:
-	hello();
-	~hello();
 };

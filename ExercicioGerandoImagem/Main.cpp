@@ -6,13 +6,10 @@
 #include "Image.h"
 #include "PTMReader.h"
 #include <iostream>
+
+#pragma warning( disable : 4244)//Conversao sempre estara no range
+
 using namespace std;
-
-//Core
-/*int inicioPersonagem = 0;
-int posicaoPersonagemX = 200;
-int sentido = 0;*/
-
 
 //Sprites
 int numSpritesLargura = 4;
@@ -28,7 +25,7 @@ Image sprite;
 
 
 void updateScene(int value) {
-	
+
 	Image impressao = imagem.clone();
 
 
@@ -46,18 +43,14 @@ void updateScene(int value) {
 		xSprite = 0;
 	}
 	else if (xSprite == numSpritesLargura - 1) {
-			xSprite = 0;
-			ySprite++;
+		xSprite = 0;
+		ySprite++;
 	}
-		else {
-			xSprite++;
-		}
-	
-	
-	//(xSprite + 1) > numSpritesLargura ? xSprite = 0 : xSprite++;
-	//(ySprite + 1) > numSpritesAltura ? ySprite = 0 : xSprite==0 ? ySprite++: ySprite=ySprite;
+	else {
+		xSprite++;
+	}
 
-	cout << xSprite << " " << ySprite<<endl<<widthSprites<<" "<<heightSprites<<endl;
+	cout << xSprite << " " << ySprite << endl << widthSprites << " " << heightSprites << endl;
 
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 	glDrawPixels(impressao.getWidth(), impressao.getHeight(), GL_BGRA_EXT, GL_UNSIGNED_BYTE,
@@ -93,15 +86,8 @@ void init(void)
 	PTMReader leitorPersonagem = PTMReader();
 	leitorPersonagem.ler("C:\\Sully.ptm");
 	sprite = leitorPersonagem.getImage();
-}
 
-/*
-*  Declare initial window size, position, and display mode
-*  (single buffer and RGBA).  Open window with "hello"
-*  in its title bar.  Call initialization routines.
-*  Register callback function to display graphics.
-*  Enter main loop and process events.
-*/
+}
 int main(int argc, char** argv)
 {
 	glutInit(&argc, argv);

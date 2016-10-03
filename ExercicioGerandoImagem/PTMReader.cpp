@@ -11,7 +11,6 @@
 #include "PTMReader.h"
 #include "Image.h"
 #include <string>
-#include "hello.h"
 
 PTMReader::PTMReader() {
 

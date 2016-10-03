@@ -2,24 +2,29 @@
 class Image
 {
 	unsigned int *pixels;
-	int width, height;
+	int width;
+	int height;
 public:
 	Image(int w, int h);
 	Image();
+
+	//Core
+	void plot(Image sobreposta, int posicaoX, int posicaoY);
+	void subImage(Image* dest, int startx, int starty);
+	void plotInto(Image* dest, int posX, int posY, char zBuffer[], char z);
+
+	//Helpers
+	void calcular();
+	int calcularPixels(int sobreposta, int fundo);
+	Image clone();
+
+	//Getters & Setters
+	int getPixel(int x, int y);
 	void setPixel(int rgb, int x, int y);
 	void setPixel(int a, int r, int g, int b, int x, int y);
-	int getPixel(int x, int y);
 	unsigned int* getPixels();
 	int getWidth();
-	int getHeight();
-	void subImage(Image *src, int startx, int starty);
 	void setWidth(int w);
+	int getHeight();
 	void setHeight(int h);
-	void calcular();
-	void plot(Image sobreposta, int posicaoX, int posicaoY);
-	int calcularPixels(int sobreposta, int fundo);
-	Image getImage() const {
-		return *this;
-	}
-	Image clone();
 };

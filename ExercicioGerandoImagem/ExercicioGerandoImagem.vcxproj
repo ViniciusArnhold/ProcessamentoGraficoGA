@@ -22,6 +22,7 @@
     <ProjectGuid>{0F85191F-2535-4921-9639-B49975BF9574}</ProjectGuid>
     <RootNamespace>ExercicioGerandoImagem</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <ProjectName>ProcessamentoGraficoGA</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -111,13 +112,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
-    <ClInclude Include="hello.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Main.h" />
     <ClInclude Include="Image.h" />
+    <ClInclude Include="Layer.h" />
     <ClInclude Include="PTMReader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
-    <ClCompile Include="hello.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Layer.cpp" />
+    <ClCompile Include="Main.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="PTMReader.cpp" />
   </ItemGroup>

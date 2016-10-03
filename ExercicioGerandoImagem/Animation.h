@@ -1,13 +1,16 @@
+#include <vector>
 #include "Image.h"
-
 #pragma once
+using namespace std;
+
 class Animation
 {
-	Image arrayImages;
-	int quadroAtual;
+	int frameCount;
+	vector<Image*> frames;
+
 public:
 	Animation();
-	void nextQuadro();
-	void getQuadroAtual();
+	void addFrame(Image* img);
+	Image getFrame(int index);
 };
 
