@@ -14,7 +14,7 @@ class Layer
 	vector<GameObject*> elements;
 
 public:
-	Layer();
+	Layer(float rateX, float rateY);
 	void scroll(bool right);
 	void plot(Image* vpImage, char zBuffer[]);
 	void computeScrollRateX(int mainWidth);

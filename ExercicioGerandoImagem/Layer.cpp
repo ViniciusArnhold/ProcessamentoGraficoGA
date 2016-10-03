@@ -2,7 +2,7 @@
 
 
 
-Layer::Layer()
+Layer::Layer(int rateX,int rateY)
 {
 	float rateX;
 	float rateY;
@@ -23,9 +23,13 @@ void Layer::scroll(bool right)
 	//TODO Implementar
 }
 
-void Layer::plot(Image * vpImage, char zBuffer[])
+void Layer::plot(Image * dest, char zBuffer[])
 {
-	//TODO Implementar
+	for (int i = 0; i < dest->getWidth(); i++) {
+		for (int j = 0; j < dest->getHeight(); j++) {
+		}
+	}
+
 }
 
 void Layer::computeScrollRateX(int mainWidth)
