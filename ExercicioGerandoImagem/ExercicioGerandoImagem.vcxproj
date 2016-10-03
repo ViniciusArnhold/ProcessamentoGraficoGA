@@ -117,6 +117,7 @@
     <ClInclude Include="Image.h" />
     <ClInclude Include="Layer.h" />
     <ClInclude Include="PTMReader.h" />
+    <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
@@ -125,6 +126,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="PTMReader.cpp" />
+    <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="C:\Users\Vinicius\Downloads\.gitignore" />

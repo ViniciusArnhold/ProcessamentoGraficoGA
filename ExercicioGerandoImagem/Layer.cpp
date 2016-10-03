@@ -2,10 +2,10 @@
 
 
 
-Layer::Layer(int rateX,int rateY)
+Layer::Layer(float rateX, float rateY)
 {
-	float rateX;
-	float rateY;
+	float rateX = rateX;
+	float rateY = rateY;
 	float posX;
 	float posY;
 	Image background;
