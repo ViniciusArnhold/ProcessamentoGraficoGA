@@ -11,7 +11,7 @@ public:
 	//Core
 	void plot(Image sobreposta, int posicaoX, int posicaoY);
 	void subImage(Image* dest, int startx, int starty);
-	void plotInto(Image* dest, int posX, int posY, char zBuffer[], char z);
+	void plotInto(Image* sobreposta, int posicaoX, int posicaoY, char *zBuffer, char z);
 
 	//Helpers
 	void calcular();

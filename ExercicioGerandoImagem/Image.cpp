@@ -74,9 +74,34 @@ void Image::subImage(Image *src, int startx, int starty) {
 	}
 }
 
-void Image::plotInto(Image * dest, int posX, int posY, char zBuffer[], char z)
+void Image::plotInto(Image* sobreposta, int posicaoX, int posicaoY, char* zBuffer, char z)
 {
-	//TODO Implementar
+	int xSobreposta = 0;
+	int ySobreposta = 0;
+
+	for (int x = posicaoX; x < sobreposta->width + posicaoX; x++) {
+		for (int y = posicaoY; y < posicaoY + sobreposta->height; y++) {
+			int pixelSobreposta = sobreposta->getPixel(xSobreposta, ySobreposta);
+			int alfa = (pixelSobreposta >> 24) & 0xff;
+			if (alfa == 0) {
+			}
+			else {
+				if (alfa == 255 && z<=zBuffer[x+y*width]) {
+					setPixel(pixelSobreposta, x, y);
+					zBuffer[x + y*width] = z;
+				}
+				else {
+					if (z <= zBuffer[x + y*width]) {
+						setPixel(calcularPixels(pixelSobreposta, getPixel(x, y)), x, y);
+					}
+				}
+			}
+			ySobreposta++;
+
+		}
+		ySobreposta = 0;
+		xSobreposta++;
+	}
 }
 
 void Image::plot(Image sobreposta, int posicaoX, int posicaoY) {
