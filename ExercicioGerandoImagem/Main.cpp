@@ -6,10 +6,18 @@
 #include "Image.h"
 #include "PTMReader.h"
 #include <iostream>
+#include "Layer.h"
+#include "Animation.h"
 
 #pragma warning( disable : 4244)//Conversao sempre estara no range
 
 using namespace std;
+
+vector<Layer *> layers;
+vector<Animation *> animations;
+Image *scene, *backup;
+char *zBuffer, *zBuffer2;
+
 
 //Sprites
 int numSpritesLargura = 4;
@@ -92,9 +100,24 @@ void init(void)
 	glLoadIdentity();
 	glOrtho(0.0, 1.0, 0.0, 1.0, -1.0, 1.0);
 
+	/*
+		1) carregar imagens das camadas
+	*/
 	PTMReader leitorFundo = PTMReader();
 	leitorFundo.ler("C:\\Teste1.ptm");
 	imagem = leitorFundo.getImage();
+
+	/*
+		2) Inicializar Layers, para cada layer da cena
+	*/
+
+	/*
+		3) Carregar animações objetos do jogo
+	*/
+
+	/*
+		4) Inicializar scene, backup, zBuffer e zBuffer2
+	*/
 
 	PTMReader leitorPersonagem = PTMReader();
 	leitorPersonagem.ler("C:\\Sully.ptm");
