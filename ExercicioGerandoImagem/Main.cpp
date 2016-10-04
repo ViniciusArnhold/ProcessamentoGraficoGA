@@ -68,6 +68,19 @@ void display(void)
 	glFlush();
 }
 
+void keyboard(int key,int x,int y) {
+	switch (key)
+	{
+	case GLUT_KEY_RIGHT:
+
+		break;
+	case GLUT_KEY_LEFT:
+		break;
+	default:
+		break;
+	}
+}
+
 void init(void)
 {
 	/*  select clearing (background) color       */

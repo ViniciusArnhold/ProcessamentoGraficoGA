@@ -1,7 +1,5 @@
 #include "Layer.h"
 
-
-
 Layer::Layer(float rateX, float rateY)
 {
 	float rateX = rateX;
@@ -12,15 +10,15 @@ Layer::Layer(float rateX, float rateY)
 	vector<GameObject*> elements;
 }
 
+
 void Layer::scroll(bool right)
 {
 	if (right) {
 
 	}
-	else {//left
+	else {
 
 	}
-	//TODO Implementar
 }
 
 void Layer::plot(Image * dest, char zBuffer[])
