@@ -80,9 +80,16 @@ void keyboard(int key,int x,int y) {
 	switch (key)
 	{
 	case GLUT_KEY_RIGHT:
-
+		for each (Layer* layer in layers)
+		{
+			layer->scroll(true);
+		}
 		break;
 	case GLUT_KEY_LEFT:
+		for each (Layer* layer in layers)
+		{
+			layer->scroll(false);
+		}
 		break;
 	default:
 		break;

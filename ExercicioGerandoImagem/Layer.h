@@ -15,7 +15,7 @@ class Layer
 
 public:
 	Layer(float rateX, float rateY);
-	void scroll(int dir);
+	void scroll(bool right);
 	void plot(Image* vpImage, char zBuffer[]);
 	void computeScrollRateX(int mainWidth);
 	void computeScrollRateY(int mainHeight);

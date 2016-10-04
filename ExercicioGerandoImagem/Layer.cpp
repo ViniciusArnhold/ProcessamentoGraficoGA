@@ -25,9 +25,9 @@ void Layer::plot(Image * dest, char zBuffer[])
 {
 	for (int i = 0; i < dest->getWidth(); i++) {
 		for (int j = 0; j < dest->getHeight(); j++) {
+
 		}
 	}
-
 }
 
 void Layer::computeScrollRateX(int mainWidth)

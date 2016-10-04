@@ -14,6 +14,9 @@ public:
 		double e = ((double)(end - begin)) / CLOCKS_PER_SEC;
 		return e * 1000;
 	}
+	double calcWaitingTime(int fps, double elapsedTime) {
+		return 1000 / fps - elapsedTime;
+	}
 private:
 	clock_t begin, end;
 };
