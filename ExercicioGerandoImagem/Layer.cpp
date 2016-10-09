@@ -7,7 +7,7 @@ Layer::Layer(float rateX, float rateY)
 	float posX;
 	float posY;
 	Image background;
-	vector<GameObject*> elements[20];
+	vector<GameObject*> elements;
 }
 
 

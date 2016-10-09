@@ -10,6 +10,5 @@ public:
 	GameObject();
 	void incCurrentFrame();
 	void setSprite(Animation anim);
-	Image getFrame();
 };
 

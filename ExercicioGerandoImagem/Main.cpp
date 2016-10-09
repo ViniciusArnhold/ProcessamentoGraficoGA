@@ -111,24 +111,58 @@ void init(void)
 		1) carregar imagens das camadas
 	*/
 	PTMReader leitorFundo = PTMReader();
-	leitorFundo.ler("C:\\Users\Administrador\Documents\ProcessamentoGrafico\Imagens\CastlevaniaMapLevel01.ptm");
+	leitorFundo.ler("C:\\Users\Administrador\Documents\ProcessamentoGrafico\Imagens\montanhas.ptm");
 	imagem = leitorFundo.getImage();
 
 	/*
 		2) Inicializar Layers, para cada layer da cena
 	*/
-
+	Layer cena1 = Layer(0,0);
+	cena1.setBackground(imagem);
 	/*
 		3) Carregar animações objetos do jogo
 	*/
+		PTMReader leitorPersonagem = PTMReader();
+		leitorPersonagem.ler("C:\\Users\Administrador\Documents\ProcessamentoGrafico\Imagens\T-rex.ptm");
+		sprite = leitorPersonagem.getImage();
+		GameObject personagemDireita = GameObject();
+		GameObject personagemEsquerda = GameObject();
+		Animation animacaoPersonagemDireita = Animation();
+		Animation animacaoPersonagemEsquerda = Animation();
+		for (int x = 0; x < sprite.getHeight()+1; x += 242) {
+			for (int y = 0; y < sprite.getWidth()/2+1; y += 126) {
+				if (x = 242) {
+					Image aux = Image(242, 126);
+					Image *p = &aux;
+					sprite.subImage(p, x, y);
+					animacaoPersonagemDireita.addFrame(&aux);
+					delete p;
+				}
+				else {
+					Image aux = Image(242, 126);
+					Image *p = &aux;
+					sprite.subImage(p, x, y);
+					animacaoPersonagemEsquerda.addFrame(&aux);
+					delete p;
+				}
+			}
+		}
+		personagemDireita.setSprite(animacaoPersonagemDireita);
+		personagemEsquerda.setSprite(animacaoPersonagemEsquerda);
 
 	/*
 		4) Inicializar scene, backup, zBuffer e zBuffer2
+		
 	*/
+		scene = &imagem;
+		Image imagemBackup = imagem;
+		backup = &imagemBackup;
+		int tamanhox = scene->getHeight();
+		char buffer[1600*900];
+		char buffer2[1600*900];
+		zBuffer = &buffer;
+		zBuffer2 = &buffer2;
 
-	PTMReader leitorPersonagem = PTMReader();
-	leitorPersonagem.ler("C:\\Sully.ptm");
-	sprite = leitorPersonagem.getImage();
 
 }
 int main(int argc, char** argv)

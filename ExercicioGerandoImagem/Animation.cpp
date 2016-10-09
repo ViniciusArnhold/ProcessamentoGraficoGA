@@ -17,5 +17,3 @@ Image* Animation::getFrame(int index)
 {
 	return frames.at(index);
 }
-
-

@@ -14,9 +14,5 @@ void GameObject::setSprite(Animation anim)
 {
 	//TODO Implementar
 }
-Image GameObject::getFrame()
-{
-	//TODO Implementar
-	return Image();
-}
+
 
