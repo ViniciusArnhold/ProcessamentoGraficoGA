@@ -6,12 +6,12 @@
 using namespace std;
 class Layer
 {
-	float rateX;
-	float rateY;
-	float posX;
-	float posY;
-	Image background;
-	vector<GameObject*> elements[20];
+	float rateX = 0;
+	float rateY = 0;
+	float posX = 0;
+	float posY = 0;
+	Image* background;
+	vector<GameObject*> elements;
 
 public:
 	Layer(float rateX, float rateY);
@@ -19,7 +19,7 @@ public:
 	void plot(Image* vpImage, char zBuffer[]);
 	void computeScrollRateX(int mainWidth);
 	void computeScrollRateY(int mainHeight);
-	void setBackground(Image image);
-	void setGameObject(GameObject objeto);
+	void setBackground(Image* image);
+	void addGameObject(GameObject* ob);
 };
 

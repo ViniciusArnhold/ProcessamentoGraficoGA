@@ -9,19 +9,12 @@
 
 Layer::Layer(float rateX, float rateY)
 {
-	float rateX = rateX;
-	float rateY = rateY;
-	float posX;
-	float posY;
-	Image background;
-	vector<GameObject*> elements[20];
 }
 
 
 void Layer::scroll(bool right)
 {
 	if (right) {
-
 	}
 	else {
 
@@ -38,19 +31,19 @@ void Layer::plot(Image * dest, char zBuffer[])
 }
 
 void Layer::computeScrollRateX(int mainWidth)
-{
-	//TODO Implementar
+{ 
+	this->rateX = mainWidth * 0, 75;
 }
 
 void Layer::computeScrollRateY(int mainHeight)
 {
-	//TODO Implementar
+	this->rateY = mainHeight * 0, 75;
 }
 
-void setBackground(Image image) {
-	
+void Layer::setBackground(Image* image) {
+	this->background = image;
 }
 
-void setGamesetGameObject(GameObject objeto) {
-	
+void Layer::addGameObject(GameObject* go) {
+	this->elements.push_back(go);
 }

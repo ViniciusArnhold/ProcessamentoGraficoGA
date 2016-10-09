@@ -8,19 +8,21 @@
 #include "Animation.h"
 Animation::Animation()
 {
-	vector<Image*> frames();
-	int frameCount = 0;
 }
 
 void Animation::addFrame(Image * img)
 {
-	frames.push_back(img);
+	this->frames.push_back(img);
+	frameCount++;
 }
 
 Image* Animation::getFrame(int index)
 {
-	frameCount = index;
-	return frames.at(index);
+	return this->frames[index];
+}
+int Animation::getSize()
+{
+	return frameCount;
 }
 
 

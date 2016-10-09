@@ -18,5 +18,9 @@ public:
 	void incCurrentFrame();
 	void setSprite(Animation anim);
 	Image* getFrame();
+	int getPosX();
+	int getPosY();
+	void setPosX(int novaPos);
+	void setPoxY(int novaPos);
 };
 

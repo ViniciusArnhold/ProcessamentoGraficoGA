@@ -10,22 +10,43 @@
 
 GameObject::GameObject()
 {
-	int currentFrame = 0;
-	int posX = 0;
-	int posY = 0;
-	Animation anim();
 }
 
 void GameObject::incCurrentFrame()
 {
-	this->currentFrame++;
+	if (this->anim.getSize() == currentFrame) {
+		currentFrame = 0;
+	}
+	else {
+		currentFrame++;
+	}
 }
+
 void GameObject::setSprite(Animation anim)
 {
 	this->anim = anim;
 }
+
 Image* GameObject::getFrame()
 {
 	return this->anim.getFrame(currentFrame);
+}
+
+int GameObject::getPosX()
+{
+	return this->posX;
+}
+void GameObject::setPosX(int novaPos)
+{
+	this->posX = novaPos;
+}
+
+int GameObject::getPosY()
+{
+	return this->posY;
+}
+void GameObject::setPoxY(int novaPos)
+{
+	this->posY = novaPos;
 }
 
