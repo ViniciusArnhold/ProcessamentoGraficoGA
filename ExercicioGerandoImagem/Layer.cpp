@@ -14,7 +14,7 @@ Layer::Layer(float rateX, float rateY)
 	float posX;
 	float posY;
 	Image background;
-	vector<GameObject*> elements;
+	vector<GameObject*> elements[20];
 }
 
 
@@ -45,4 +45,12 @@ void Layer::computeScrollRateX(int mainWidth)
 void Layer::computeScrollRateY(int mainHeight)
 {
 	//TODO Implementar
+}
+
+void setBackground(Image image) {
+	
+}
+
+void setGamesetGameObject(GameObject objeto) {
+	
 }
