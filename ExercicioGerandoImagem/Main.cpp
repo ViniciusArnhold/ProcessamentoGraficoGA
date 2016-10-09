@@ -1,3 +1,13 @@
+/* ___                                                        _            ___            __ _                       ___   _
+  / _ \_ __ ___   ___ ___  ___ ___  __ _ _ __ ___   ___ _ __ | |_ ___     / _ \_ __ __ _ / _(_) ___ ___             / _ \ /_\
+ / /_)/ '__/ _ \ / __/ _ \/ __/ __|/ _` | '_ ` _ \ / _ \ '_ \| __/ _ \   / /_\/ '__/ _` | |_| |/ __/ _ \   _____   / /_\///_\\
+/ ___/| | | (_) | (_|  __/\__ \__ \ (_| | | | | | |  __/ | | | || (_) | / /_\\| | | (_| |  _| | (_| (_) | |_____| / /_\\/  _  \
+\/    |_|  \___/ \___\___||___/___/\__,_|_| |_| |_|\___|_| |_|\__\___/  \____/|_|  \__,_|_| |_|\___\___/          \____/\_/ \_/
+								Unisinos 2016 - Vinicius Pegorini Arnhold e Reni Steffenon
+*/
+
+#pragma once
+
 #include <Windows.h>
 #include <GL/gl.h>
 #include <GL/glut.h>
@@ -8,6 +18,7 @@
 #include <iostream>
 #include "Layer.h"
 #include "Animation.h"
+
 
 #pragma warning( disable : 4244)//Conversao sempre estara no range
 
@@ -76,7 +87,7 @@ void display(void)
 	glFlush();
 }
 
-void keyboard(int key,int x,int y) {
+void keyboard(int key, int x, int y) {
 	switch (key)
 	{
 	case GLUT_KEY_RIGHT:
@@ -138,9 +149,11 @@ int main(int argc, char** argv)
 	init();
 	glutInitWindowSize(imagem.getWidth(), imagem.getHeight());
 	glutInitWindowPosition(100, 100);
-	glutCreateWindow("Gerar Imagem exercicio 4");
+	glutCreateWindow("Processamento Grafico - GA");
 	glutDisplayFunc(display);
 	updateScene(1);
 	glutMainLoop();
 	return 0;   /* ISO C requires main to return int. */
+
+	//TODO Deletar Ponteiros Criados
 }
