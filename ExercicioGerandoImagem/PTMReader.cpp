@@ -1,3 +1,10 @@
+/* ___                                                        _            ___            __ _                       ___   _
+  / _ \_ __ ___   ___ ___  ___ ___  __ _ _ __ ___   ___ _ __ | |_ ___     / _ \_ __ __ _ / _(_) ___ ___             / _ \ /_\
+ / /_)/ '__/ _ \ / __/ _ \/ __/ __|/ _` | '_ ` _ \ / _ \ '_ \| __/ _ \   / /_\/ '__/ _` | |_| |/ __/ _ \   _____   / /_\///_\\
+/ ___/| | | (_) | (_|  __/\__ \__ \ (_| | | | | | |  __/ | | | || (_) | / /_\\| | | (_| |  _| | (_| (_) | |_____| / /_\\/  _  \
+\/    |_|  \___/ \___\___||___/___/\__,_|_| |_| |_|\___|_| |_|\__\___/  \____/|_|  \__,_|_| |_|\___\___/          \____/\_/ \_/
+								Unisinos 2016 - Vinicius Pegorini Arnhold e Reni Steffenon
+*/
 #include <Windows.h>
 #include <GL/gl.h>
 #include <GL/glut.h>
@@ -60,7 +67,7 @@ void PTMReader::ler(char* caminho)
 		cout << "Numero de cores: " << textBuffer << endl;
 
 		cout << endl <<
-				"  ---------------------  " << endl;
+			"  ---------------------  " << endl;
 		cout << "Iniciando leitura binaria" << endl;
 		cout << "  ---------------------  " << endl << endl;
 
@@ -83,7 +90,7 @@ void PTMReader::ler(char* caminho)
 		int i = 0;
 		for (int y = altura - 1; y > 0; y--) {
 			for (int x = 0; x < largura; x++) {
-				b = 0xff & buffer[i++];//aaaaaa
+				b = 0xff & buffer[i++];//aaaa
 				a = 0xff & buffer[i++];//rrr
 				r = 0xff & buffer[i++];//gg
 				g = 0xff & buffer[i++];//b
