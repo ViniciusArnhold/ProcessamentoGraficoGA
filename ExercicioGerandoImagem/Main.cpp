@@ -111,7 +111,7 @@ void init(void)
 		1) carregar imagens das camadas
 	*/
 	PTMReader leitorFundo = PTMReader();
-	leitorFundo.ler("C:\\Teste1.ptm");
+	leitorFundo.ler("C:\\Users\Administrador\Documents\ProcessamentoGrafico\Imagens\CastlevaniaMapLevel01.ptm");
 	imagem = leitorFundo.getImage();
 
 	/*
