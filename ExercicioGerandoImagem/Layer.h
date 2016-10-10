@@ -21,5 +21,6 @@ public:
 	void computeScrollRateY(int mainHeight);
 	void setBackground(Image* image);
 	void addGameObject(GameObject* ob);
+	Image* getBackground();
 };
 
