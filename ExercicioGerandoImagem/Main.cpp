@@ -30,6 +30,11 @@ vector<Animation *> animations;
 Image *scene, *backup;
 char *zBuffer, *zBuffer2;
 
+Animation* animacaoPersonagemDireitaP;
+Animation* animacaoPersonagemEsquerdaP;
+GameObject* personagemDireitaP;
+GameObject* personagemEsquerdaP;
+
 
 
 //Sprites
@@ -75,12 +80,16 @@ void updateScene(int value) {
 	cout << xSprite << " " << ySprite << endl << widthSprites << " " << heightSprites << endl;
 	*/
 	Image impressao = *layer1->getBackground();
+	personagemDireitaP->setPosX(10);
+	personagemDireitaP->setPoxY(200);
+	impressao.plot(*personagemDireitaP->getFrame(), personagemDireitaP->getPosX(), personagemDireitaP->getPosY());
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 	glDrawPixels(impressao.getWidth(), impressao.getHeight(), GL_BGRA_EXT, GL_UNSIGNED_BYTE,
 		impressao.getPixels());
 	glFlush();
 
 	glutTimerFunc(500, updateScene, 1);
+
 }
 
 void display(void)
@@ -138,15 +147,15 @@ void init(void)
 		3) Carregar animações objetos do jogo
 	*/
 		PTMReader leitorPersonagem = PTMReader();
-		leitorPersonagem.ler("C:\\T-rex.ptm");
+		leitorPersonagem.ler("C:\\rex.ptm");
 		sprite = leitorPersonagem.getImage();
 		GameObject personagemDireita = GameObject();
 		GameObject personagemEsquerda = GameObject();
 		Animation animacaoPersonagemDireita = Animation();
 		Animation animacaoPersonagemEsquerda = Animation();
-		for (int x = 0; x < sprite.getHeight()+1; x += 242) {
-			for (int y = 0; y < sprite.getWidth()/2+1; y += 126) {
-				if (x = 242) {
+		for (int y = 0; y < sprite.getWidth() / 2 + 1; y += 126) {
+			for (int x = 0; x < sprite.getHeight(); x += 242) {
+				if (y <= 242) {
 					Image aux = Image(242, 126);
 					Image *p = &aux;
 					sprite.subImage(p, x, y);
@@ -169,6 +178,11 @@ void init(void)
 		4) Inicializar scene, backup, zBuffer e zBuffer2
 		
 	*/
+		personagemDireitaP = &personagemDireita;
+		personagemEsquerdaP = &personagemEsquerda;
+		animacaoPersonagemDireitaP = &animacaoPersonagemDireita;
+		animacaoPersonagemEsquerdaP = &animacaoPersonagemEsquerda;
+
 		scene = &imagem;
 		Image imagemBackup = imagem;
 		backup = &imagemBackup;
