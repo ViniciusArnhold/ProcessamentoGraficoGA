@@ -11,12 +11,12 @@ class Layer
 	float rateY;
 	float posX;
 	float posY;
-	Image background;
+	//Image background;
 //=======
-	float rateX = 0;
-	float rateY = 0;
-	float posX = 0;
-	float posY = 0;
+//	float rateX = 0;
+//	float rateY = 0;
+//	float posX = 0;
+//	float posY = 0;
 	Image* background;
 //>>>>>>> origin/master
 	vector<GameObject*> elements;
@@ -29,5 +29,6 @@ public:
 	void computeScrollRateY(int mainHeight);
 	void setBackground(Image* image);
 	void addGameObject(GameObject* ob);
+	Image* getBackground();
 };
 

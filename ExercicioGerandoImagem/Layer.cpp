@@ -10,8 +10,8 @@
 Layer::Layer(float rateX, float rateY)
 {
 //<<<<<<< HEAD
-	float rateX = rateX;
-	float rateY = rateY;
+	//float rateX = rateX;
+	//float rateY = rateY;
 	float posX;
 	float posY;
 	Image background;
@@ -55,4 +55,8 @@ void Layer::setBackground(Image* image) {
 
 void Layer::addGameObject(GameObject* go) {
 	this->elements.push_back(go);
+}
+
+Image* Layer::getBackground() {
+	return background;
 }

@@ -25,9 +25,11 @@
 using namespace std;
 
 vector<Layer *> layers;
+Layer *layer1;
 vector<Animation *> animations;
 Image *scene, *backup;
 char *zBuffer, *zBuffer2;
+
 
 
 //Sprites
@@ -45,6 +47,7 @@ Image sprite;
 
 void updateScene(int value) {
 
+	/*
 	Image impressao = imagem.clone();
 
 
@@ -70,7 +73,8 @@ void updateScene(int value) {
 	}
 
 	cout << xSprite << " " << ySprite << endl << widthSprites << " " << heightSprites << endl;
-
+	*/
+	Image impressao = *layer1->getBackground();
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 	glDrawPixels(impressao.getWidth(), impressao.getHeight(), GL_BGRA_EXT, GL_UNSIGNED_BYTE,
 		impressao.getPixels());
@@ -122,7 +126,7 @@ void init(void)
 		1) carregar imagens das camadas
 	*/
 	PTMReader leitorFundo = PTMReader();
-	leitorFundo.ler("C:\\Users\Administrador\Documents\ProcessamentoGrafico\Imagens\montanhas.ptm");
+	leitorFundo.ler("C:\\montanhas.ptm");
 	imagem = leitorFundo.getImage();
 
 	/*
@@ -134,7 +138,7 @@ void init(void)
 		3) Carregar animações objetos do jogo
 	*/
 		PTMReader leitorPersonagem = PTMReader();
-		leitorPersonagem.ler("C:\\Users\Administrador\Documents\ProcessamentoGrafico\Imagens\T-rex.ptm");
+		leitorPersonagem.ler("C:\\T-rex.ptm");
 		sprite = leitorPersonagem.getImage();
 		GameObject personagemDireita = GameObject();
 		GameObject personagemEsquerda = GameObject();
@@ -147,14 +151,14 @@ void init(void)
 					Image *p = &aux;
 					sprite.subImage(p, x, y);
 					animacaoPersonagemDireita.addFrame(&aux);
-					delete p;
+					//delete p;
 				}
 				else {
 					Image aux = Image(242, 126);
 					Image *p = &aux;
 					sprite.subImage(p, x, y);
 					animacaoPersonagemEsquerda.addFrame(&aux);
-					delete p;
+					//delete p;
 				}
 			}
 		}
@@ -169,11 +173,13 @@ void init(void)
 		Image imagemBackup = imagem;
 		backup = &imagemBackup;
 		int tamanhox = scene->getHeight();
-		char buffer[1600*900];
-		char buffer2[1600*900];
+//		char buffer[1600*900];
+//		char buffer2[1600*900];
 		//zBuffer = &buffer;
 		//zBuffer2 = &buffer2;
-
+		cena1.addGameObject(&personagemDireita);
+		cena1.addGameObject(&personagemEsquerda);
+		layer1 = &cena1;
 
 }
 int main(int argc, char** argv)
