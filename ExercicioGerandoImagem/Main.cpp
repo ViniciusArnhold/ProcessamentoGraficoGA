@@ -56,7 +56,10 @@ bool playing = true;
 
 void updateScene(int value) {
 
-	glutTimerFunc(500, updateScene, 1);
+	scene = Image(500, 500);
+	for (int i = 0; i < layers.size(); i++) {
+		layers.at(i).plot(&scene,zBuffer);
+	}
 
 }
 
