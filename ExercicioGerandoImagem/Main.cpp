@@ -129,7 +129,7 @@ void init(void)
 		2) Inicializar Layers, para cada layer da cena
 	*/
 	Layer cena1 = Layer(0,0);
-	cena1.setBackground(imagem);
+	cena1.setBackground(&imagem);
 	/*
 		3) Carregar animações objetos do jogo
 	*/
@@ -171,8 +171,8 @@ void init(void)
 		int tamanhox = scene->getHeight();
 		char buffer[1600*900];
 		char buffer2[1600*900];
-		zBuffer = &buffer;
-		zBuffer2 = &buffer2;
+		//zBuffer = &buffer;
+		//zBuffer2 = &buffer2;
 
 
 }
