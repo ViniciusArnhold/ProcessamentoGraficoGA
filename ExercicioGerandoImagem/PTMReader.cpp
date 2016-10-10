@@ -35,7 +35,7 @@ Image PTMReader::getImage()
 
 void PTMReader::ler(char* caminho)
 {
-
+	img = Image();
 	using namespace std;
 
 	ifstream input(caminho, std::ios::binary);

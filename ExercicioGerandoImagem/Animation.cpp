@@ -10,7 +10,7 @@ Animation::Animation()
 {
 }
 
-void Animation::addFrame(Image * img)
+void Animation::addFrame(Image img)
 {
 	this->frames.push_back(img);
 	frameCount++;
@@ -18,7 +18,7 @@ void Animation::addFrame(Image * img)
 
 Image* Animation::getFrame(int index)
 {
-	return this->frames.at(index);
+	return &frames.at(index);
 }
 int Animation::getSize()
 {

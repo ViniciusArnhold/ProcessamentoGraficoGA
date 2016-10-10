@@ -18,67 +18,44 @@
 #include <iostream>
 #include "Layer.h"
 #include "Animation.h"
+#include "Timer.h"
 
 
 #pragma warning( disable : 4244)//Conversao sempre estara no range
 
 using namespace std;
 
-vector<Layer *> layers;
-Layer *layer1;
-vector<Animation *> animations;
-Image *scene, *backup;
+//Tamanhos
+int xPA;
+int yPA;
+int xPP;
+int yPP;
+int xCobra;
+int yCobra;
+
+vector<Layer> layers;
+Image scene, backup;
 char *zBuffer, *zBuffer2;
 
-Animation animacaoPersonagemDireita;
-Animation animacaoPersonagemEsquerda;
-GameObject personagemDireita;
-GameObject personagemEsquerda;
+Animation animPerAndando = Animation();
+Animation animPerPulando = Animation();
+Animation animCobra = Animation();
+Animation animCaixa = Animation();
+Animation animSpike = Animation();
 
+GameObject objPerPulando = GameObject();
+GameObject objPerAndando = GameObject();
+GameObject objCobra = GameObject();
+GameObject objCaixa = GameObject();
+GameObject objSpike = GameObject();
+Timer timer = Timer();
 
+PTMReader leitor = PTMReader();
 
-//Sprites
-int numSpritesLargura = 4;
-int numSpritesAltura = 4;
-int widthSprites = 0;
-int heightSprites = 0;
-
-int xSprite = 0;
-int ySprite = 0;
-
-Image imagem;
-Image sprite;
-
+bool playing = true;
 
 void updateScene(int value) {
-
-	/*
-	Image impressao = imagem.clone();
-
-
-	widthSprites = floor(sprite.getWidth() / numSpritesLargura);
-	heightSprites = floor(sprite.getHeight() / numSpritesAltura);
-
-	Image personagem1(64, 64);
-
-	sprite.subImage(&personagem1, xSprite*widthSprites, ySprite*heightSprites);
-
-	impressao.plot(personagem1, 50, 50);
-
-	if (ySprite == numSpritesAltura - 1 && xSprite == numSpritesLargura - 1) {
-		ySprite = 0;
-		xSprite = 0;
-	}
-	else if (xSprite == numSpritesLargura - 1) {
-		xSprite = 0;
-		ySprite++;
-	}
-	else {
-		xSprite++;
-	}
-
-	cout << xSprite << " " << ySprite << endl << widthSprites << " " << heightSprites << endl;
-	*/
+	scene = 
 	Image impressao = *layer1->getBackground();
 	personagemDireita.setPosX(10);
 	personagemDireita.setPoxY(200);
@@ -95,25 +72,39 @@ void updateScene(int value) {
 void display(void)
 {
 	glClearColor(0.0, 0.0, 0.0, 0.0);
-	glDrawPixels(imagem.getWidth(), imagem.getHeight(), GL_BGRA_EXT, GL_UNSIGNED_BYTE,
+	glDrawPixels(500,500, GL_BGRA_EXT, GL_UNSIGNED_BYTE,
 		imagem.getPixels());
 	glFlush();
+}
+
+void update(int value) {
+	timer.start();
+	objCobra.incCurrentFrame();
+	glutPostRedisplay();
+	timer.finish();
+	int waitingTime = timer.calcWaitingTime(30, timer.getElapsedTimeMs());
+	if (playing) {
+		glutTimerFunc(waitingTime, update, 5);
+	}
 }
 
 void keyboard(int key, int x, int y) {
 	switch (key)
 	{
 	case GLUT_KEY_RIGHT:
-		for each (Layer* layer in layers)
+		for (int i = 0; i < layers.size(); i++)
 		{
-			layer->scroll(true);
+			layers.at(i).scroll(true);
 		}
 		break;
 	case GLUT_KEY_LEFT:
-		for each (Layer* layer in layers)
+		for (int i = 0; i < layers.size(); i++)
 		{
-			layer->scroll(false);
+			layers.at(i).scroll(false);
 		}
+		break;
+	case GLUT_KEY_UP:
+		//TODO Pular
 		break;
 	default:
 		break;
@@ -132,64 +123,74 @@ void init(void)
 	glOrtho(0.0, 1.0, 0.0, 1.0, -1.0, 1.0);
 
 	/*
-		1) carregar imagens das camadas
+		1) carregar imagens das camadas e   2) inicia a layer
 	*/
-	PTMReader leitorFundo = PTMReader();
-	leitorFundo.ler("E:\Vinicius\Programming\Repos\ProcessamentoGraficoGA\Imagens\montanhas.ptm");
-	imagem = leitorFundo.getImage();
+	Layer layer = Layer();
+	leitor.ler("E:\Vinicius\Programming\Repos\ProcessamentoGraficoGA\Imagens\zMinus3.ptm");
+	layer.setBackground(leitor.getImage());
+	layers.push_back(layer);
+	leitor.ler("E:\Vinicius\Programming\Repos\ProcessamentoGraficoGA\Imagens\zMinus2.ptm");
+	layer = Layer();
+	layer.setBackground(leitor.getImage());
+	layers.push_back(layer);
+	leitor.ler("E:\Vinicius\Programming\Repos\ProcessamentoGraficoGA\Imagens\zMinus1.ptm");
+	layer = Layer();
+	layer.setBackground(leitor.getImage());
+	layers.push_back(layer);
+	leitor.ler("E:\Vinicius\Programming\Repos\ProcessamentoGraficoGA\Imagens\zMinus0.ptm");
+	layer = Layer();
+	layer.setBackground(leitor.getImage());
+	layers.push_back(layer);
+	leitor.ler("E:\Vinicius\Programming\Repos\ProcessamentoGraficoGA\Imagens\zPlus1.ptm");
+	layer = Layer();
+	layer.setBackground(leitor.getImage());
+	layers.push_back(layer);
 
-	/*
-		2) Inicializar Layers, para cada layer da cena
-	*/
-	Layer cena1 = Layer(0,0);
-	cena1.setBackground(&imagem);
 	/*
 		3) Carregar anima��es objetos do jogo
 	*/
-		PTMReader leitorPersonagem = PTMReader();
-		leitorPersonagem.ler("E:\Vinicius\Programming\Repos\ProcessamentoGraficoGA\Imagens\T-rex.ptm");
-		sprite = leitorPersonagem.getImage();
-		personagemDireita = GameObject();
-		personagemEsquerda = GameObject();
-		animacaoPersonagemDireita = Animation();
-		animacaoPersonagemEsquerda = Animation();
-		for (int y = 0; y < sprite.getWidth() / 2 + 1; y += 126) {
-			for (int x = 0; x < sprite.getHeight(); x += 242) {
-				if (y <= 242) {
-					Image aux = Image(242, 126);
-					Image *p = &aux;
-					sprite.subImage(p, x, y);
-					animacaoPersonagemDireita.addFrame(&aux);
-					//delete p;
-				}
-				else {
-					Image aux = Image(242, 126);
-					Image *p = &aux;
-					sprite.subImage(p, x, y);
-					animacaoPersonagemEsquerda.addFrame(&aux);
-					//delete p;
-				}
-			}
-		}
-		personagemDireita.setSprite(animacaoPersonagemDireita);
-		personagemEsquerda.setSprite(animacaoPersonagemEsquerda);
+	leitor.ler("PersonagemAndando");
+	Image backup = Image(xPP, yPP);
+	for (int i = 0; i < 3; i++) {
+		leitor.getImage().subImage(&backup, i*xPA, 0);
+		animPerPulando.addFrame(backup);
+	}
+	leitor.ler("PersonagemPulando");
+	backup = Image(xPA, yPA);
+	for (int i = 0; i < 3; i++) {
+		leitor.getImage().subImage(&backup, i*xPA, 0);
+		animPerAndando.addFrame(backup);
+	}
+
+	leitor.ler("Cobra");
+	backup = Image(xCobra, yCobra);
+	for (int i = 0; i < 8; i++) {
+		leitor.getImage().subImage(&backup, i*xPA, 0);
+		animCobra.addFrame(backup);
+	}
+
+	objPerPulando.setSprite(animPerPulando);
+	objPerPulando.setPosX(50);
+	objPerPulando.setPoxY(0);
+	objPerAndando.setSprite(animPerAndando);
+	objPerPulando.setPosX(50);
+	objPerPulando.setPoxY(0);
+	objCobra.setSprite(animCobra);
+	objPerPulando.setPosX(500);
+	objPerPulando.setPoxY(0);
 
 	/*
 		4) Inicializar scene, backup, zBuffer e zBuffer2
-		
-	*/
 
-		scene = &imagem;
-		Image imagemBackup = imagem;
-		backup = &imagemBackup;
-		int tamanhox = scene->getHeight();
-//		char buffer[1600*900];
-		layer1 = &cena1;
-		cena1.addGameObject(&personagemEsquerda);
-		cena1.addGameObject(&personagemDireita);
-		//zBuffer2 = &buffer2;
-		//zBuffer = &buffer;
-//		char buffer2[1600*900];
+	*/
+	layers.at(2).addGameObject(objPerPulando);
+	layers.at(2).addGameObject(objPerAndando);
+	layers.at(2).addGameObject(objCobra);
+
+	for (int i = 0; i < layers.size(); i++) {
+		layers.at(0).computeScrollRateX(500);
+	}
+
 
 }
 int main(int argc, char** argv)
@@ -197,7 +198,7 @@ int main(int argc, char** argv)
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
 	init();
-	glutInitWindowSize(imagem.getWidth(), imagem.getHeight());
+	glutInitWindowSize(800, 800);
 	glutInitWindowPosition(100, 100);
 	glutCreateWindow("Processamento Grafico - GA");
 	glutDisplayFunc(display);

@@ -7,7 +7,7 @@
 */
 #include "Layer.h"
 
-Layer::Layer(float rateX, float rateY)
+Layer::Layer()
 {
 }
 
@@ -40,14 +40,14 @@ void Layer::computeScrollRateY(int mainHeight)
 	this->rateY = mainHeight * 0, 75;
 }
 
-void Layer::setBackground(Image* image) {
+void Layer::setBackground(Image image) {
 	this->background = image;
 }
 
-void Layer::addGameObject(GameObject* go) {
+void Layer::addGameObject(GameObject go) {
 	this->elements.push_back(go);
 }
 
-Image* Layer::getBackground() {
+Image Layer::getBackground() {
 	return background;
 }

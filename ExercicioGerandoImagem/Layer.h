@@ -10,17 +10,17 @@ class Layer
 	float rateY = 0;
 	float posX = 0;
 	float posY = 0;
-	Image* background;
+	Image background;
 	vector<GameObject*> elements;
 
 public:
-	Layer(float rateX, float rateY);
+	Layer();
 	void scroll(bool right);
 	void plot(Image* vpImage, char zBuffer[]);
 	void computeScrollRateX(int mainWidth);
 	void computeScrollRateY(int mainHeight);
-	void setBackground(Image* image);
-	void addGameObject(GameObject* ob);
-	Image* getBackground();
+	void setBackground(Image image);
+	void addGameObject(GameObject ob);
+	Image getBackground();
 };
 

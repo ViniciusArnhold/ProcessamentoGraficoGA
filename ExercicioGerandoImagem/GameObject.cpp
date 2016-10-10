@@ -15,12 +15,7 @@ GameObject::GameObject()
 
 void GameObject::incCurrentFrame()
 {
-	if (this->anim.getSize() == currentFrame) {
-//		currentFrame = 0;
-	}
-	else {
-//		currentFrame++;
-	}
+	currentFrame = (currentFrame + 1) % this->anim.getSize();
 }
 
 void GameObject::setSprite(Animation anim)
