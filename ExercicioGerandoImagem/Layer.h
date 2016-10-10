@@ -6,19 +6,11 @@
 using namespace std;
 class Layer
 {
-//<<<<<<< HEAD
-	float rateX;
-	float rateY;
-	float posX;
-	float posY;
-	Image background;
-//=======
 	float rateX = 0;
 	float rateY = 0;
 	float posX = 0;
 	float posY = 0;
 	Image* background;
-//>>>>>>> origin/master
 	vector<GameObject*> elements;
 
 public:

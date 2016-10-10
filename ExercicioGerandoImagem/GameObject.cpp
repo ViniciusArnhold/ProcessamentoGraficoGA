@@ -45,12 +45,8 @@ int GameObject::getPosY()
 {
 	return this->posY;
 }
-//<<<<<<< HEAD
-
-//=======
 void GameObject::setPoxY(int novaPos)
 {
 	this->posY = novaPos;
 }
-//>>>>>>> origin/master
 

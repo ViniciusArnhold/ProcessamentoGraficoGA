@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Imagens">
+      <UniqueIdentifier>{4bad0bcc-633a-49ed-aff9-87a83a0b7e65}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Image.h">
@@ -60,5 +63,11 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="C:\Users\Vinicius\Downloads\.gitignore" />
+    <None Include="..\Imagens\montanhas.ptm">
+      <Filter>Imagens</Filter>
+    </None>
+    <None Include="..\Imagens\T-rex.ptm">
+      <Filter>Imagens</Filter>
+    </None>
   </ItemGroup>
 </Project>

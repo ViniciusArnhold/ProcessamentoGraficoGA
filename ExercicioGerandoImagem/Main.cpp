@@ -122,7 +122,7 @@ void init(void)
 		1) carregar imagens das camadas
 	*/
 	PTMReader leitorFundo = PTMReader();
-	leitorFundo.ler("C:\\Users\Administrador\Documents\ProcessamentoGrafico\Imagens\montanhas.ptm");
+	leitorFundo.ler(".\Imagens\montanhas.ptm");
 	imagem = leitorFundo.getImage();
 
 	/*
@@ -134,7 +134,7 @@ void init(void)
 		3) Carregar anima��es objetos do jogo
 	*/
 		PTMReader leitorPersonagem = PTMReader();
-		leitorPersonagem.ler("C:\\Users\Administrador\Documents\ProcessamentoGrafico\Imagens\T-rex.ptm");
+		leitorPersonagem.ler(".\Imagens\T-rex.ptm");
 		sprite = leitorPersonagem.getImage();
 		GameObject personagemDireita = GameObject();
 		GameObject personagemEsquerda = GameObject();

@@ -9,15 +9,6 @@
 
 Layer::Layer(float rateX, float rateY)
 {
-//<<<<<<< HEAD
-	float rateX = rateX;
-	float rateY = rateY;
-	float posX;
-	float posY;
-	Image background;
-	vector<GameObject*> elements;
-//=======
-//>>>>>>> origin/master
 }
 
 
