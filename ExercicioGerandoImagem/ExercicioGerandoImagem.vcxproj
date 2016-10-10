@@ -128,8 +128,12 @@
     <ClCompile Include="PTMReader.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Imagens\montanhas.ptm" />
-    <None Include="..\Imagens\T-rex.ptm" />
+    <Image Include="..\Imagens\montanhas.ptm">
+      <FileType>Document</FileType>
+    </Image>
+    <Image Include="..\Imagens\T-rex.ptm">
+      <FileType>Document</FileType>
+    </Image>
     <None Include="C:\Users\Vinicius\Downloads\.gitignore" />
     <None Include="packages.config" />
   </ItemGroup>

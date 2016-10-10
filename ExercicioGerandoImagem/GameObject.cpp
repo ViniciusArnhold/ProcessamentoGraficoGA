@@ -10,15 +10,16 @@
 
 GameObject::GameObject()
 {
+	int currentFrame = 0;
 }
 
 void GameObject::incCurrentFrame()
 {
 	if (this->anim.getSize() == currentFrame) {
-		currentFrame = 0;
+//		currentFrame = 0;
 	}
 	else {
-		currentFrame++;
+//		currentFrame++;
 	}
 }
 

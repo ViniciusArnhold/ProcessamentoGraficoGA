@@ -18,7 +18,7 @@ void Animation::addFrame(Image * img)
 
 Image* Animation::getFrame(int index)
 {
-	return this->frames[index];
+	return this->frames.at(index);
 }
 int Animation::getSize()
 {

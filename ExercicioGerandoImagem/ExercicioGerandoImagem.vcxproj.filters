@@ -63,11 +63,13 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="C:\Users\Vinicius\Downloads\.gitignore" />
-    <None Include="..\Imagens\montanhas.ptm">
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Imagens\montanhas.ptm">
       <Filter>Imagens</Filter>
-    </None>
-    <None Include="..\Imagens\T-rex.ptm">
+    </Image>
+    <Image Include="..\Imagens\T-rex.ptm">
       <Filter>Imagens</Filter>
-    </None>
+    </Image>
   </ItemGroup>
 </Project>

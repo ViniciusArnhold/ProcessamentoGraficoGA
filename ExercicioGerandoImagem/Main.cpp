@@ -30,10 +30,10 @@ vector<Animation *> animations;
 Image *scene, *backup;
 char *zBuffer, *zBuffer2;
 
-Animation* animacaoPersonagemDireitaP;
-Animation* animacaoPersonagemEsquerdaP;
-GameObject* personagemDireitaP;
-GameObject* personagemEsquerdaP;
+Animation animacaoPersonagemDireita;
+Animation animacaoPersonagemEsquerda;
+GameObject personagemDireita;
+GameObject personagemEsquerda;
 
 
 
@@ -80,9 +80,9 @@ void updateScene(int value) {
 	cout << xSprite << " " << ySprite << endl << widthSprites << " " << heightSprites << endl;
 	*/
 	Image impressao = *layer1->getBackground();
-	personagemDireitaP->setPosX(10);
-	personagemDireitaP->setPoxY(200);
-	impressao.plot(*personagemDireitaP->getFrame(), personagemDireitaP->getPosX(), personagemDireitaP->getPosY());
+	personagemDireita.setPosX(10);
+	personagemDireita.setPoxY(200);
+	impressao.plot(*personagemDireita.getFrame(), personagemDireita.getPosX(), personagemDireita.getPosY());
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 	glDrawPixels(impressao.getWidth(), impressao.getHeight(), GL_BGRA_EXT, GL_UNSIGNED_BYTE,
 		impressao.getPixels());
@@ -135,7 +135,7 @@ void init(void)
 		1) carregar imagens das camadas
 	*/
 	PTMReader leitorFundo = PTMReader();
-	leitorFundo.ler(".\Imagens\montanhas.ptm");
+	leitorFundo.ler("E:\Vinicius\Programming\Repos\ProcessamentoGraficoGA\Imagens\montanhas.ptm");
 	imagem = leitorFundo.getImage();
 
 	/*
@@ -147,12 +147,12 @@ void init(void)
 		3) Carregar anima��es objetos do jogo
 	*/
 		PTMReader leitorPersonagem = PTMReader();
-		leitorPersonagem.ler(".\Imagens\T-rex.ptm");
+		leitorPersonagem.ler("E:\Vinicius\Programming\Repos\ProcessamentoGraficoGA\Imagens\T-rex.ptm");
 		sprite = leitorPersonagem.getImage();
-		GameObject personagemDireita = GameObject();
-		GameObject personagemEsquerda = GameObject();
-		Animation animacaoPersonagemDireita = Animation();
-		Animation animacaoPersonagemEsquerda = Animation();
+		personagemDireita = GameObject();
+		personagemEsquerda = GameObject();
+		animacaoPersonagemDireita = Animation();
+		animacaoPersonagemEsquerda = Animation();
 		for (int y = 0; y < sprite.getWidth() / 2 + 1; y += 126) {
 			for (int x = 0; x < sprite.getHeight(); x += 242) {
 				if (y <= 242) {
@@ -178,10 +178,6 @@ void init(void)
 		4) Inicializar scene, backup, zBuffer e zBuffer2
 		
 	*/
-		personagemDireitaP = &personagemDireita;
-		personagemEsquerdaP = &personagemEsquerda;
-		animacaoPersonagemDireitaP = &animacaoPersonagemDireita;
-		animacaoPersonagemEsquerdaP = &animacaoPersonagemEsquerda;
 
 		scene = &imagem;
 		Image imagemBackup = imagem;

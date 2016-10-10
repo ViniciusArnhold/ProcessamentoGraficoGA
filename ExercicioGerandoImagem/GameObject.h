@@ -9,10 +9,10 @@
 #pragma once
 class GameObject
 {
-	int currentFrame;
-	int posX;
-	int posY;
-	Animation anim;
+	int currentFrame=0;
+	int posX=0;
+	int posY=0;
+	Animation anim = Animation();
 public:
 	GameObject();
 	Image* getFrame();

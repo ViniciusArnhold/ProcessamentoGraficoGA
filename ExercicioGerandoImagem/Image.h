@@ -2,8 +2,8 @@
 class Image
 {
 	unsigned int *pixels;
-	int width;
-	int height;
+	int width=0;
+	int height=0;
 public:
 	Image(int w, int h);
 	Image();
