@@ -15,9 +15,15 @@ Layer::Layer()
 void Layer::scroll(bool right)
 {
 	if (right) {
+		if ((posX + posX*rateX) > (background.getWidth()) - 500) {
+			posX = background.getWidth() - 500;
+		}
+		else {
+			posX + floor(posX*rateX);
+		}
 	}
 	else {
-
+		posX = floor(posX*rateX);
 	}
 }
 
@@ -30,13 +36,13 @@ void Layer::plot(Image * dest, char zBuffer[])
 }
 
 void Layer::computeScrollRateX(int mainWidth)
-{ 
-	this->rateX = mainWidth * 0, 75;
+{
+	this->rateX = mainWidth * 0, 30;
 }
 
 void Layer::computeScrollRateY(int mainHeight)
 {
-	this->rateY = mainHeight * 0, 75;
+	this->rateY = mainHeight * 0, 30;
 }
 
 void Layer::setBackground(Image image) {

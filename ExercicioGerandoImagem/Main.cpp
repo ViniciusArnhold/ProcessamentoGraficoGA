@@ -26,11 +26,11 @@
 using namespace std;
 
 //Tamanhos
-int xPA;
+int xPA = 57;
 int yPA;
-int xPP;
+int xPP = 54;
 int yPP;
-int xCobra;
+int xCobra = 300;
 int yCobra;
 
 vector<Layer> layers;
@@ -63,7 +63,7 @@ void updateScene(int value) {
 void display(void)
 {
 	glClearColor(0.0, 0.0, 0.0, 0.0);
-	glDrawPixels(500,500, GL_BGRA_EXT, GL_UNSIGNED_BYTE,
+	glDrawPixels(500, 500, GL_BGRA_EXT, GL_UNSIGNED_BYTE,
 		scene.getPixels());
 	glFlush();
 }
@@ -114,22 +114,22 @@ void init(void)
 		1) carregar imagens das camadas e   2) inicia a layer
 	*/
 	Layer layer = Layer();
-	leitor.ler("E:\Vinicius\Programming\Repos\ProcessamentoGraficoGA\Imagens\zMinus3.ptm");
+	leitor.ler("C:\\Imagens\zMinus3.ptm");
 	layer.setBackground(leitor.getImage());
 	layers.push_back(layer);
-	leitor.ler("E:\Vinicius\Programming\Repos\ProcessamentoGraficoGA\Imagens\zMinus2.ptm");
+	leitor.ler("C:\\Imagens\zMinus2.ptm");
 	layer = Layer();
 	layer.setBackground(leitor.getImage());
 	layers.push_back(layer);
-	leitor.ler("E:\Vinicius\Programming\Repos\ProcessamentoGraficoGA\Imagens\zMinus1.ptm");
+	leitor.ler("C:\\Imagens\zMinus1.ptm");
 	layer = Layer();
 	layer.setBackground(leitor.getImage());
 	layers.push_back(layer);
-	leitor.ler("E:\Vinicius\Programming\Repos\ProcessamentoGraficoGA\Imagens\zMinus0.ptm");
+	leitor.ler("C:\\Imagens\zMinus0.ptm");
 	layer = Layer();
 	layer.setBackground(leitor.getImage());
 	layers.push_back(layer);
-	leitor.ler("E:\Vinicius\Programming\Repos\ProcessamentoGraficoGA\Imagens\zPlus1.ptm");
+	leitor.ler("C:\\Imagens\zPlus1.ptm");
 	layer = Layer();
 	layer.setBackground(leitor.getImage());
 	layers.push_back(layer);

@@ -65,7 +65,7 @@ void PTMReader::ler(char* caminho)
 	cout << "Numero de cores: " << textBuffer << endl;
 
 	cout << endl <<
-		"  ---------------------  " << endl;
+		    "  ---------------------  " << endl;
 	cout << "Iniciando leitura binaria" << endl;
 	cout << "  ---------------------  " << endl << endl;
 
