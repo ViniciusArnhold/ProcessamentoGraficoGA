@@ -131,7 +131,7 @@ void init(void)
 	Layer cena1 = Layer(0,0);
 	cena1.setBackground(&imagem);
 	/*
-		3) Carregar animações objetos do jogo
+		3) Carregar animaï¿½ï¿½es objetos do jogo
 	*/
 		PTMReader leitorPersonagem = PTMReader();
 		leitorPersonagem.ler("C:\\Users\Administrador\Documents\ProcessamentoGrafico\Imagens\T-rex.ptm");
@@ -171,8 +171,8 @@ void init(void)
 		int tamanhox = scene->getHeight();
 		char buffer[1600*900];
 		char buffer2[1600*900];
-		//zBuffer = &buffer;
-		//zBuffer2 = &buffer2;
+		zBuffer2 = buffer2;
+		zBuffer = buffer;
 
 
 }
