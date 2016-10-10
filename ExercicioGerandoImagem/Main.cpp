@@ -57,7 +57,7 @@ bool playing = true;
 void updateScene(int value) {
 
 	scene = Image(500, 500);
-	for (int i = 0; i < layers.size(); i++) {
+	for (int i = 1; i < 2; i++) {
 		layers.at(i).plot(&scene,zBuffer);
 	}
 
@@ -117,22 +117,22 @@ void init(void)
 		1) carregar imagens das camadas e   2) inicia a layer
 	*/
 	Layer layer = Layer();
-	leitor.ler("C:\\Imagens\zMinus3.ptm");
+	leitor.ler("C:\\zMinus3.ptm");
 	layer.setBackground(leitor.getImage());
 	layers.push_back(layer);
-	leitor.ler("C:\\Imagens\zMinus2.ptm");
+	leitor.ler("C:\\zMinus2.ptm");
 	layer = Layer();
 	layer.setBackground(leitor.getImage());
 	layers.push_back(layer);
-	leitor.ler("C:\\Imagens\zMinus1.ptm");
+	leitor.ler("C:\\zMinus1.ptm");
 	layer = Layer();
 	layer.setBackground(leitor.getImage());
 	layers.push_back(layer);
-	leitor.ler("C:\\Imagens\zMinus0.ptm");
+	leitor.ler("C:\\zMinus0.ptm");
 	layer = Layer();
 	layer.setBackground(leitor.getImage());
 	layers.push_back(layer);
-	leitor.ler("C:\\Imagens\zPlus1.ptm");
+	leitor.ler("C:\\zPlus1.ptm");
 	layer = Layer();
 	layer.setBackground(leitor.getImage());
 	layers.push_back(layer);
@@ -140,43 +140,43 @@ void init(void)
 	/*
 		3) Carregar anima��es objetos do jogo
 	*/
-	leitor.ler("PersonagemAndando");
+	leitor.ler("C:\\andando.ptm");
 	Image backup = Image(xPP, yPP);
 	for (int i = 0; i < 3; i++) {
-		leitor.getImage().subImage(&backup, i*xPA, 0);
-		animPerPulando.addFrame(backup);
+		leitor.getImage().subImage(&backup, i*xPP, 0);
+		animPerAndando.addFrame(backup);
 	}
-	leitor.ler("PersonagemPulando");
+	/*leitor.ler("PersonagemPulando");
 	backup = Image(xPA, yPA);
 	for (int i = 0; i < 3; i++) {
 		leitor.getImage().subImage(&backup, i*xPA, 0);
-		animPerAndando.addFrame(backup);
-	}
+		animPerPulando.addFrame(backup);
+	}*/
 
-	leitor.ler("Cobra");
+	leitor.ler("C:\\cobras.ptm");
 	backup = Image(xCobra, yCobra);
 	for (int i = 0; i < 8; i++) {
-		leitor.getImage().subImage(&backup, i*xPA, 0);
+		leitor.getImage().subImage(&backup, i*xCobra, 0);
 		animCobra.addFrame(backup);
 	}
 
-	objPerPulando.setSprite(animPerPulando);
-	objPerPulando.setPosX(50);
-	objPerPulando.setPoxY(0);
+	//objPerPulando.setSprite(animPerPulando);
+	//objPerPulando.setPosX(50);
+	//objPerPulando.setPoxY(0);
 	objPerAndando.setSprite(animPerAndando);
-	objPerPulando.setPosX(50);
-	objPerPulando.setPoxY(0);
+	objPerAndando.setPosX(50);
+	objPerAndando.setPoxY(0);
 	objCobra.setSprite(animCobra);
-	objPerPulando.setPosX(500);
-	objPerPulando.setPoxY(0);
+	//objPerPulando.setPosX(500);
+	//objPerPulando.setPoxY(0);
 
 	/*
 		4) Inicializar scene, backup, zBuffer e zBuffer2
 
 	*/
-	layers.at(2).addGameObject(objPerPulando);
-	layers.at(2).addGameObject(objPerAndando);
-	layers.at(2).addGameObject(objCobra);
+	//layers.at(2).addGameObject(objPerPulando);
+	layers.at(1).addGameObject(objPerAndando);
+	layers.at(1).addGameObject(objCobra);
 
 	for (int i = 0; i < layers.size(); i++) {
 		layers.at(0).computeScrollRateX(500);

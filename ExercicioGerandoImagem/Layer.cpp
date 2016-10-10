@@ -29,10 +29,12 @@ void Layer::scroll(bool right)
 
 void Layer::plot(Image * dest, char zBuffer[])
 {
-	background.plotInto(dest, posX, posY, zBuffer, 0);
+	background.subImage(dest, posX, posY);
 	for (int i = 0; i < elements.size(); i++) {
-		elements.at(i).getFrame()->plotInto(dest, elements.at(i).getPosX(), elements.at(i).getPosY(), zBuffer, 0);
+		//elements.at(i).getFrame()->plot(*dest, elements.at(i).getPosX(), elements.at(i).getPosY());
+		dest->plot(elements.at(i).getFrame()->clone(), elements.at(i).getPosX(), elements.at(i).getPosY());
 	}
+	
 }
 
 void Layer::computeScrollRateX(int mainWidth)
