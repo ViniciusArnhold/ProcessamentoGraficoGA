@@ -25,9 +25,16 @@
 using namespace std;
 
 vector<Layer *> layers;
+Layer *layer1;
 vector<Animation *> animations;
 Image *scene, *backup;
 char *zBuffer, *zBuffer2;
+
+Animation* animacaoPersonagemDireitaP;
+Animation* animacaoPersonagemEsquerdaP;
+GameObject* personagemDireitaP;
+GameObject* personagemEsquerdaP;
+
 
 
 //Sprites
@@ -45,6 +52,7 @@ Image sprite;
 
 void updateScene(int value) {
 
+	/*
 	Image impressao = imagem.clone();
 
 
@@ -70,13 +78,18 @@ void updateScene(int value) {
 	}
 
 	cout << xSprite << " " << ySprite << endl << widthSprites << " " << heightSprites << endl;
-
+	*/
+	Image impressao = *layer1->getBackground();
+	personagemDireitaP->setPosX(10);
+	personagemDireitaP->setPoxY(200);
+	impressao.plot(*personagemDireitaP->getFrame(), personagemDireitaP->getPosX(), personagemDireitaP->getPosY());
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 	glDrawPixels(impressao.getWidth(), impressao.getHeight(), GL_BGRA_EXT, GL_UNSIGNED_BYTE,
 		impressao.getPixels());
 	glFlush();
 
 	glutTimerFunc(500, updateScene, 1);
+
 }
 
 void display(void)
@@ -140,21 +153,21 @@ void init(void)
 		GameObject personagemEsquerda = GameObject();
 		Animation animacaoPersonagemDireita = Animation();
 		Animation animacaoPersonagemEsquerda = Animation();
-		for (int x = 0; x < sprite.getHeight()+1; x += 242) {
-			for (int y = 0; y < sprite.getWidth()/2+1; y += 126) {
-				if (x = 242) {
+		for (int y = 0; y < sprite.getWidth() / 2 + 1; y += 126) {
+			for (int x = 0; x < sprite.getHeight(); x += 242) {
+				if (y <= 242) {
 					Image aux = Image(242, 126);
 					Image *p = &aux;
 					sprite.subImage(p, x, y);
 					animacaoPersonagemDireita.addFrame(&aux);
-					delete p;
+					//delete p;
 				}
 				else {
 					Image aux = Image(242, 126);
 					Image *p = &aux;
 					sprite.subImage(p, x, y);
 					animacaoPersonagemEsquerda.addFrame(&aux);
-					delete p;
+					//delete p;
 				}
 			}
 		}
@@ -165,15 +178,22 @@ void init(void)
 		4) Inicializar scene, backup, zBuffer e zBuffer2
 		
 	*/
+		personagemDireitaP = &personagemDireita;
+		personagemEsquerdaP = &personagemEsquerda;
+		animacaoPersonagemDireitaP = &animacaoPersonagemDireita;
+		animacaoPersonagemEsquerdaP = &animacaoPersonagemEsquerda;
+
 		scene = &imagem;
 		Image imagemBackup = imagem;
 		backup = &imagemBackup;
 		int tamanhox = scene->getHeight();
-		char buffer[1600*900];
-		char buffer2[1600*900];
-		zBuffer2 = buffer2;
-		zBuffer = buffer;
-
+//		char buffer[1600*900];
+		layer1 = &cena1;
+		cena1.addGameObject(&personagemEsquerda);
+		cena1.addGameObject(&personagemDireita);
+		//zBuffer2 = &buffer2;
+		//zBuffer = &buffer;
+//		char buffer2[1600*900];
 
 }
 int main(int argc, char** argv)

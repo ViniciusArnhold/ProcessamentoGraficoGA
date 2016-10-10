@@ -70,6 +70,7 @@ Image Image::clone() {
 }
 
 void Image::subImage(Image *src, int startx, int starty) {
+
 	int memoryStartY = starty;
 	for (int x = 0; x < src->getWidth(); x++) {
 		for (int y = 0; y < src->getHeight(); y++) {

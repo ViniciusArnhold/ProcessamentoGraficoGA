@@ -47,3 +47,7 @@ void Layer::setBackground(Image* image) {
 void Layer::addGameObject(GameObject* go) {
 	this->elements.push_back(go);
 }
+
+Image* Layer::getBackground() {
+	return background;
+}
