@@ -55,15 +55,6 @@ PTMReader leitor = PTMReader();
 bool playing = true;
 
 void updateScene(int value) {
-	scene = 
-	Image impressao = *layer1->getBackground();
-	personagemDireita.setPosX(10);
-	personagemDireita.setPoxY(200);
-	impressao.plot(*personagemDireita.getFrame(), personagemDireita.getPosX(), personagemDireita.getPosY());
-	glClearColor(0.0, 0.0, 0.0, 0.0);
-	glDrawPixels(impressao.getWidth(), impressao.getHeight(), GL_BGRA_EXT, GL_UNSIGNED_BYTE,
-		impressao.getPixels());
-	glFlush();
 
 	glutTimerFunc(500, updateScene, 1);
 
@@ -73,7 +64,7 @@ void display(void)
 {
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 	glDrawPixels(500,500, GL_BGRA_EXT, GL_UNSIGNED_BYTE,
-		imagem.getPixels());
+		scene.getPixels());
 	glFlush();
 }
 
@@ -102,9 +93,6 @@ void keyboard(int key, int x, int y) {
 		{
 			layers.at(i).scroll(false);
 		}
-		break;
-	case GLUT_KEY_UP:
-		//TODO Pular
 		break;
 	default:
 		break;

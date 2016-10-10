@@ -43,61 +43,59 @@ void PTMReader::ler(char* caminho)
 	int altura = 0;
 	string str;
 
-#pragma region Codigo confiavel
-	if (input) {
 
-		//Tamanho arquivo
-		char textBuffer[256];
+	//Tamanho arquivo
+	char textBuffer[256];
 
-		cout << "Leitor de arquivo PTM.";
-		input >> textBuffer;//Primeira linha
-		cout << "Tipo de Arquivo: " << textBuffer << endl;
+	cout << "Leitor de arquivo PTM.";
+	input >> textBuffer;//Primeira linha
+	cout << "Tipo de Arquivo: " << textBuffer << endl;
 
-		input >> textBuffer;//Segunda linha
-		str = textBuffer;
-		largura = stoi(str);
-		cout << "Largura: " << largura << endl;
+	input >> textBuffer;//Segunda linha
+	str = textBuffer;
+	largura = stoi(str);
+	cout << "Largura: " << largura << endl;
 
-		input >> textBuffer;//Terceira linha
-		str = textBuffer;
-		altura = stoi(str);
-		cout << "Altura: " << altura << endl;
+	input >> textBuffer;//Terceira linha
+	str = textBuffer;
+	altura = stoi(str);
+	cout << "Altura: " << altura << endl;
 
-		input >> textBuffer;//Quarta linha
-		cout << "Numero de cores: " << textBuffer << endl;
+	input >> textBuffer;//Quarta linha
+	cout << "Numero de cores: " << textBuffer << endl;
 
-		cout << endl <<
-			"  ---------------------  " << endl;
-		cout << "Iniciando leitura binaria" << endl;
-		cout << "  ---------------------  " << endl << endl;
+	cout << endl <<
+		"  ---------------------  " << endl;
+	cout << "Iniciando leitura binaria" << endl;
+	cout << "  ---------------------  " << endl << endl;
 
-		img = Image(largura, altura);
+	img = Image(largura, altura);
 
-		//Binary
-		char * buffer = new char[altura*largura * 4];
-		input.read(buffer, altura*largura * 4);
+	//Binary
+	char * buffer = new char[altura*largura * 4];
+	input.read(buffer, altura*largura * 4);
 
-		int larL = largura - 1;
-		int altL = 0;
+	int larL = largura - 1;
+	int altL = 0;
 
-		int a = 0;
-		int r = 0;
-		int g = 0;
-		int b = 0;
+	int a = 0;
+	int r = 0;
+	int g = 0;
+	int b = 0;
 
-		int alt = 0;
-		int lar = 0;
-		int i = 0;
-		for (int y = altura - 1; y > 0; y--) {
-			for (int x = 0; x < largura; x++) {
-				b = 0xff & buffer[i++];//aaaa
-				a = 0xff & buffer[i++];//rrr
-				r = 0xff & buffer[i++];//gg
-				g = 0xff & buffer[i++];//b
-				img.setPixel(a, r, g, b, x, y);
-			}
+	int alt = 0;
+	int lar = 0;
+	int i = 0;
+	for (int y = altura - 1; y > 0; y--) {
+		for (int x = 0; x < largura; x++) {
+			b = 0xff & buffer[i++];//aaaa
+			a = 0xff & buffer[i++];//rrr
+			r = 0xff & buffer[i++];//gg
+			g = 0xff & buffer[i++];//b
+			img.setPixel(a, r, g, b, x, y);
 		}
-
-		cout << "Arquivo " << caminho << "terminou de ser lido.";
 	}
+
+	cout << "Arquivo " << caminho << "terminou de ser lido.";
+
 }
