@@ -26,15 +26,15 @@
 using namespace std;
 
 //Tamanhos
-int xPA = 57;
-int yPA;
-int xPP = 54;
-int yPP;
+int xPA = 228;
+int yPA = 248;
+int xPP = 216;
+int yPP = 240;
 int xCobra = 300;
-int yCobra;
+int yCobra = 260;
 
 vector<Layer> layers;
-Image scene, backup;
+Image scene(1500, 600), backup;
 char *zBuffer, *zBuffer2;
 
 Animation animPerAndando = Animation();
@@ -54,11 +54,15 @@ PTMReader leitor = PTMReader();
 
 bool playing = true;
 
+bool cobraEstaEscondia();
+bool validaColisao();
+void finalize(bool ganhou);
+
 void updateScene(int value) {
 
-	scene = Image(500, 500);
-	for (int i = 1; i < 2; i++) {
-		layers.at(i).plot(&scene,zBuffer);
+	//scene = Image(1500, 600);
+	for (int i = 0; i < layers.size(); i++) {
+		layers.at(i).plot(&scene, zBuffer);
 	}
 
 }
@@ -66,7 +70,7 @@ void updateScene(int value) {
 void display(void)
 {
 	glClearColor(0.0, 0.0, 0.0, 0.0);
-	glDrawPixels(500, 500, GL_BGRA_EXT, GL_UNSIGNED_BYTE,
+	glDrawPixels(1500, 600, GL_BGRA_EXT, GL_UNSIGNED_BYTE,
 		scene.getPixels());
 	glFlush();
 }
@@ -74,32 +78,63 @@ void display(void)
 void update(int value) {
 	timer.start();
 	objCobra.incCurrentFrame();
+	objPerAndando.incCurrentFrame();
+	updateScene(1);
 	glutPostRedisplay();
 	timer.finish();
-	int waitingTime = timer.calcWaitingTime(30, timer.getElapsedTimeMs());
+	int waitingTime = timer.calcWaitingTime(12, timer.getElapsedTimeMs());
+	cout << waitingTime << endl;
 	if (playing) {
-		glutTimerFunc(waitingTime, update, 5);
+		glutTimerFunc(10, update, 5);
 	}
 }
 
-void keyboard(int key, int x, int y) {
+void keyboard(unsigned char key, int x, int y) {
 	switch (key)
 	{
-	case GLUT_KEY_RIGHT:
+	case 'd':
 		for (int i = 0; i < layers.size(); i++)
 		{
 			layers.at(i).scroll(true);
+			objCobra.setPosX(objCobra.getPosX() - 50);
+
+			if (validaColisao()) {
+				finalize(false);
+			}
 		}
 		break;
-	case GLUT_KEY_LEFT:
+	case 'a':
 		for (int i = 0; i < layers.size(); i++)
 		{
 			layers.at(i).scroll(false);
+			objCobra.setPosX(objCobra.getPosX() + 50);
+			if (validaColisao()) {
+				finalize(false);
+			}
 		}
 		break;
 	default:
 		break;
 	}
+	glutPostRedisplay();
+}
+
+bool validaColisao() {
+	if (layers.at(4).getPosX()>5000) {
+		finalize(true);
+	}
+	else if (!cobraEstaEscondia()) {
+		if (objPerAndando.getPosX() + objPerAndando.getFrame()->getWidth() > objCobra.getPosX()
+			&& (objCobra.getPosX() + objCobra.getFrame()->getWidth()) < objPerAndando.getPosX()) {
+			return true;
+		}
+	}
+	return false;
+}
+
+bool cobraEstaEscondia() {//Algoritimo de colisao -> big O(11)
+	int f = objCobra.getCurFrame();
+	return f == 13 || f == 14 || f == 15 || f == 16 || f == 17 || f == 18 || f == 19 || f == 20 || f == 21 || f == 22 || f == 23;
 }
 
 void init(void)
@@ -117,22 +152,22 @@ void init(void)
 		1) carregar imagens das camadas e   2) inicia a layer
 	*/
 	Layer layer = Layer();
-	leitor.ler("C:\\zMinus3.ptm");
+	leitor.ler("..\\Imagens\\zMinus3.ptm");
 	layer.setBackground(leitor.getImage());
 	layers.push_back(layer);
-	leitor.ler("C:\\zMinus2.ptm");
+	leitor.ler("..\\Imagens\\zMinus2.ptm");
 	layer = Layer();
 	layer.setBackground(leitor.getImage());
 	layers.push_back(layer);
-	leitor.ler("C:\\zMinus1.ptm");
+	leitor.ler("..\\Imagens\\zMinus1.ptm");
 	layer = Layer();
 	layer.setBackground(leitor.getImage());
 	layers.push_back(layer);
-	leitor.ler("C:\\zMinus0.ptm");
+	leitor.ler("..\\Imagens\\zMinus0.ptm");
 	layer = Layer();
 	layer.setBackground(leitor.getImage());
 	layers.push_back(layer);
-	leitor.ler("C:\\zPlus1.ptm");
+	leitor.ler("..\\Imagens\\zPlus1.ptm");
 	layer = Layer();
 	layer.setBackground(leitor.getImage());
 	layers.push_back(layer);
@@ -140,62 +175,77 @@ void init(void)
 	/*
 		3) Carregar anima��es objetos do jogo
 	*/
-	leitor.ler("C:\\andando.ptm");
+	leitor.ler("..\\Imagens\\Andando.ptm");
 	Image backup = Image(xPP, yPP);
 	for (int i = 0; i < 3; i++) {
 		leitor.getImage().subImage(&backup, i*xPP, 0);
 		animPerAndando.addFrame(backup);
 	}
-	/*leitor.ler("PersonagemPulando");
-	backup = Image(xPA, yPA);
-	for (int i = 0; i < 3; i++) {
-		leitor.getImage().subImage(&backup, i*xPA, 0);
-		animPerPulando.addFrame(backup);
-	}*/
 
-	leitor.ler("C:\\cobras.ptm");
+	leitor.ler("..\\Imagens\\Cobras.ptm");
 	backup = Image(xCobra, yCobra);
 	for (int i = 0; i < 8; i++) {
 		leitor.getImage().subImage(&backup, i*xCobra, 0);
 		animCobra.addFrame(backup);
 	}
-
-	//objPerPulando.setSprite(animPerPulando);
-	//objPerPulando.setPosX(50);
-	//objPerPulando.setPoxY(0);
 	objPerAndando.setSprite(animPerAndando);
-	objPerAndando.setPosX(50);
-	objPerAndando.setPoxY(0);
+	objPerAndando.setPosX(100);
+	objPerAndando.setPoxY(200);
 	objCobra.setSprite(animCobra);
-	//objPerPulando.setPosX(500);
-	//objPerPulando.setPoxY(0);
+	objCobra.setPosX(1000);
+	objCobra.setPoxY(200);
 
 	/*
 		4) Inicializar scene, backup, zBuffer e zBuffer2
-
 	*/
-	//layers.at(2).addGameObject(objPerPulando);
-	layers.at(1).addGameObject(objPerAndando);
-	layers.at(1).addGameObject(objCobra);
+	layers.at(4).addGameObject(&objPerAndando);
+	layers.at(4).addGameObject(&objCobra);
 
-	for (int i = 0; i < layers.size(); i++) {
-		layers.at(0).computeScrollRateX(500);
-	}
+	layers.at(0).computeScrollRateX(30);
+	layers.at(1).computeScrollRateX(50);
+	layers.at(2).computeScrollRateX(70);
+	layers.at(3).computeScrollRateX(90);
+	layers.at(4).computeScrollRateX(110);
+
+
+	zBuffer = new char[layers.at(1).getBackground().getWidth()*layers.at(1).getBackground().getHeight()];
+	zBuffer2 = new char[layers.at(1).getBackground().getWidth()*layers.at(1).getBackground().getHeight()];
 
 
 }
+
+void finalize(bool ganhou) {
+	playing = false;
+	glutHideWindow();
+	cout << endl << endl << endl << endl << endl << endl << endl << endl;
+	if (ganhou) {
+		cout << "Parabens voce ganhou." << endl;
+	}
+	else {
+		cout << "Voce perdeu." << endl;
+	}
+	cout << endl << endl << "Enter para sair" << endl;
+	cin.get();
+	exit(0);
+}
+
 int main(int argc, char** argv)
 {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
 	init();
-	glutInitWindowSize(800, 800);
-	glutInitWindowPosition(100, 100);
+	validaColisao();
+	glutInitWindowSize(1500, 1500);
+	glutInitWindowPosition(0, 0);
 	glutCreateWindow("Processamento Grafico - GA");
 	glutDisplayFunc(display);
-	updateScene(1);
+	glutKeyboardFunc(keyboard);
+	update(1);
+	//updateScene(1);
 	glutMainLoop();
+
+	delete zBuffer;
+	delete zBuffer2;
 	return 0;   /* ISO C requires main to return int. */
 
-	//TODO Deletar Ponteiros Criados
 }

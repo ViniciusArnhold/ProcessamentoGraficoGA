@@ -11,7 +11,8 @@ class Layer
 	float posX = 0;
 	float posY = 0;
 	Image background;
-	vector<GameObject> elements;
+	Image tmp;
+	vector<GameObject*> elements;
 
 public:
 	Layer();
@@ -20,7 +21,9 @@ public:
 	void computeScrollRateX(int mainWidth);
 	void computeScrollRateY(int mainHeight);
 	void setBackground(Image image);
-	void addGameObject(GameObject ob);
+	void addGameObject(GameObject* ob);
 	Image getBackground();
+	
+	int getPosX();
 };
 

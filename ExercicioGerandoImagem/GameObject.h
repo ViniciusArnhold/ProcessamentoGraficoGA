@@ -22,5 +22,6 @@ public:
 	void setPoxY(int novaPos);
 	void incCurrentFrame();
 	void setSprite(Animation anim);
+	int getCurFrame();
 };
 

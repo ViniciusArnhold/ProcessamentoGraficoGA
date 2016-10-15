@@ -7,6 +7,8 @@
 */
 #include "GameObject.h"
 #include "Animation.h"
+#include <iostream>
+using namespace std;
 
 GameObject::GameObject()
 {
@@ -21,6 +23,11 @@ void GameObject::incCurrentFrame()
 void GameObject::setSprite(Animation anim)
 {
 	this->anim = anim;
+}
+
+int GameObject::getCurFrame()
+{
+	return currentFrame;
 }
 
 Image* GameObject::getFrame()

@@ -63,6 +63,30 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="C:\Users\Vinicius\Downloads\.gitignore" />
+    <None Include="..\Imagens\zMinus0.ptm">
+      <Filter>Imagens</Filter>
+    </None>
+    <None Include="..\Imagens\zMinus1.ptm">
+      <Filter>Imagens</Filter>
+    </None>
+    <None Include="..\Imagens\zMinus2.ptm">
+      <Filter>Imagens</Filter>
+    </None>
+    <None Include="..\Imagens\zMinus3.ptm">
+      <Filter>Imagens</Filter>
+    </None>
+    <None Include="..\Imagens\zPlus1.ptm">
+      <Filter>Imagens</Filter>
+    </None>
+    <None Include="..\Imagens\Andando.ptm">
+      <Filter>Imagens</Filter>
+    </None>
+    <None Include="..\Imagens\Cobras.ptm">
+      <Filter>Imagens</Filter>
+    </None>
+    <None Include="..\Imagens\Pulando.ptm">
+      <Filter>Imagens</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Imagens\montanhas.ptm">
