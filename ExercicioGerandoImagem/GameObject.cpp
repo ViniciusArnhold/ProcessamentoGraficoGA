@@ -17,10 +17,10 @@ GameObject::GameObject()
 
 void GameObject::incCurrentFrame()
 {
-	currentFrame = (currentFrame + 1) % this->anim.getSize();
+	currentFrame = (currentFrame + 1) % this->anim->getSize();
 }
 
-void GameObject::setSprite(Animation anim)
+void GameObject::setSprite(Animation* anim)
 {
 	this->anim = anim;
 }
@@ -32,7 +32,7 @@ int GameObject::getCurFrame()
 
 Image* GameObject::getFrame()
 {
-	return this->anim.getFrame(currentFrame);
+	return this->anim->getFrame(currentFrame);
 }
 
 int GameObject::getPosX()

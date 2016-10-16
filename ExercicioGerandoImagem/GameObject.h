@@ -12,7 +12,7 @@ class GameObject
 	int currentFrame=0;
 	int posX=0;
 	int posY=0;
-	Animation anim = Animation();
+	Animation* anim;
 public:
 	GameObject();
 	Image* getFrame();
@@ -21,7 +21,7 @@ public:
 	void setPosX(int novaPos);
 	void setPoxY(int novaPos);
 	void incCurrentFrame();
-	void setSprite(Animation anim);
+	void setSprite(Animation* anim);
 	int getCurFrame();
 };
 

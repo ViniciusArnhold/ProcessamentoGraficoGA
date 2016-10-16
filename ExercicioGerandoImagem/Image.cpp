@@ -8,6 +8,7 @@
 #include "Image.h"
 
 
+#pragma warning( disable : 4244)
 
 Image::Image(int largura, int altura) {
 	width = largura;
@@ -74,7 +75,7 @@ void Image::subImage(Image *src, int startx, int starty) {
 	int memoryStartY = starty;
 	for (int x = 0; x < src->getWidth(); x++) {
 		for (int y = 0; y < src->getHeight(); y++) {
-			src->setPixel(getPixel(startx, starty), x, y);
+			src->setPixel(getPixel(startx,  starty), x, y);
 			starty++;
 		}
 		startx++;
@@ -84,33 +85,21 @@ void Image::subImage(Image *src, int startx, int starty) {
 
 void Image::plotInto(Image* sobreposta, int posicaoX, int posicaoY, char* zBuffer, char z)
 {
-	int xThis = 0;
-	int yThis = 0;
+	int xRef = 0;
+	int yRef = 0;
 
-	for (int x = posicaoX; x < posicaoX + width && x<sobreposta->getWidth(); x++) {
-		for (int y = posicaoY; y < posicaoY + height && y<sobreposta->getHeight(); y++) {
-			int pixelThis = getPixel(xThis, yThis);
-			int alfa = (pixelThis >> 24) & 0xff;
-			if (alfa == 0) {
-
-			}
-			else
-			{
-				if (alfa == 255) {
-					sobreposta->setPixel(pixelThis, x, y);
-					//zBuffer[x + y*width] = z;
-				}
-				else
-				{
-
-					sobreposta->setPixel(sobreposta->calcularPixels(sobreposta->getPixel(x, y), pixelThis), x, y);
-
+	for (int x = posicaoX; x < posicaoX + width && x < sobreposta->getWidth(); x++) {
+		for (int y = posicaoY; y < posicaoY + height && y < sobreposta->getHeight(); y++) {
+			int alfa = (getPixel(xRef, yRef) >> 24) & 0xff;
+			if (!alfa == 0) {
+				if (!alfa == 255) {
+					sobreposta->setPixel(calcularPixels(getPixel(x,y), sobreposta->getPixel(xRef, yRef)), xRef, yRef);
 				}
 			}
-			yThis++;
+			yRef++;
 		}
-		yThis = 0;
-		xThis++;
+		yRef = 0;
+		xRef++;
 	}
 }
 

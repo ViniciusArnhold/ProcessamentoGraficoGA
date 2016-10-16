@@ -7,9 +7,10 @@
 */
 #include "Layer.h"
 
+#pragma warning( disable : 4244)
+
 Layer::Layer()
 {
-	tmp = Image(1500, 600);
 }
 
 
@@ -37,15 +38,10 @@ void Layer::scroll(bool right)
 void Layer::plot(Image * dest, char zBuffer[])
 {
 	int z = 0;
-	Image backup = dest->clone();
-	background.subImage(&backup, posX, posY);
-	backup.plotInto(dest, 0, 0, zBuffer, z);
+	background.plotInto(dest, posX, posY,zBuffer,0);
 	for (int i = 0; i < elements.size(); i++) {
-		//dest->plot(elements.at(i).getFrame()->clone(), elements.at(i).getPosX(), elements.at(i).getPosY());
 		elements.at(i)->getFrame()->plotInto(dest, elements.at(i)->getPosX(), elements.at(i)->getPosY(), zBuffer, 0);
-		
 	}
-
 }
 
 void Layer::computeScrollRateX(int mainWidth)
@@ -66,8 +62,8 @@ void Layer::addGameObject(GameObject* go) {
 	this->elements.push_back(go);
 }
 
-Image Layer::getBackground() {
-	return background;
+Image* Layer::getBackground() {
+	return &background;
 }
 
 int Layer::getPosX()

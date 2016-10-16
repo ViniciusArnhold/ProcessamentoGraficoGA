@@ -51,20 +51,20 @@ GameObject objSpike = GameObject();
 Timer timer = Timer();
 
 PTMReader leitor = PTMReader();
+Layer layer = Layer();
 
 bool playing = true;
 
 bool cobraEstaEscondia();
-bool validaColisao();
+void validaColisao();
 void finalize(bool ganhou);
+void dispose();
 
 void updateScene(int value) {
-
-	//scene = Image(1500, 600);
+	scene = Image(1500, 600);
 	for (int i = 0; i < layers.size(); i++) {
 		layers.at(i).plot(&scene, zBuffer);
 	}
-
 }
 
 void display(void)
@@ -97,10 +97,7 @@ void keyboard(unsigned char key, int x, int y) {
 		{
 			layers.at(i).scroll(true);
 			objCobra.setPosX(objCobra.getPosX() - 50);
-
-			if (validaColisao()) {
-				finalize(false);
-			}
+			validaColisao();
 		}
 		break;
 	case 'a':
@@ -108,9 +105,7 @@ void keyboard(unsigned char key, int x, int y) {
 		{
 			layers.at(i).scroll(false);
 			objCobra.setPosX(objCobra.getPosX() + 50);
-			if (validaColisao()) {
-				finalize(false);
-			}
+			validaColisao();
 		}
 		break;
 	default:
@@ -119,17 +114,16 @@ void keyboard(unsigned char key, int x, int y) {
 	glutPostRedisplay();
 }
 
-bool validaColisao() {
+void validaColisao() {
 	if (layers.at(4).getPosX()>5000) {
 		finalize(true);
 	}
 	else if (!cobraEstaEscondia()) {
 		if (objPerAndando.getPosX() + objPerAndando.getFrame()->getWidth() > objCobra.getPosX()
 			&& (objCobra.getPosX() + objCobra.getFrame()->getWidth()) < objPerAndando.getPosX()) {
-			return true;
+			finalize(false);
 		}
 	}
-	return false;
 }
 
 bool cobraEstaEscondia() {//Algoritimo de colisao -> big O(11)
@@ -137,7 +131,7 @@ bool cobraEstaEscondia() {//Algoritimo de colisao -> big O(11)
 	return f == 13 || f == 14 || f == 15 || f == 16 || f == 17 || f == 18 || f == 19 || f == 20 || f == 21 || f == 22 || f == 23;
 }
 
-void init(void)
+void init()
 {
 	/*  select clearing (background) color       */
 	glClearColor(0.0, 0.0, 0.0, 0.0);
@@ -151,7 +145,6 @@ void init(void)
 	/*
 		1) carregar imagens das camadas e   2) inicia a layer
 	*/
-	Layer layer = Layer();
 	leitor.ler("..\\Imagens\\zMinus3.ptm");
 	layer.setBackground(leitor.getImage());
 	layers.push_back(layer);
@@ -176,22 +169,24 @@ void init(void)
 		3) Carregar anima��es objetos do jogo
 	*/
 	leitor.ler("..\\Imagens\\Andando.ptm");
-	Image backup = Image(xPP, yPP);
-	for (int i = 0; i < 3; i++) {
-		leitor.getImage().subImage(&backup, i*xPP, 0);
+	Image backup = Image(xPA, yPA);
+	int size = leitor.getImage().getWidth();
+	for (int i = 0; i < size/xPA; i++) {
+		leitor.getImage().subImage(&backup, i*xPA, 0);
 		animPerAndando.addFrame(backup);
 	}
 
 	leitor.ler("..\\Imagens\\Cobras.ptm");
 	backup = Image(xCobra, yCobra);
-	for (int i = 0; i < 8; i++) {
+	size = leitor.getImage().getWidth();
+	for (int i = 0; i < size/xCobra; i++) {
 		leitor.getImage().subImage(&backup, i*xCobra, 0);
 		animCobra.addFrame(backup);
 	}
-	objPerAndando.setSprite(animPerAndando);
+	objPerAndando.setSprite(&animPerAndando);
 	objPerAndando.setPosX(100);
 	objPerAndando.setPoxY(200);
-	objCobra.setSprite(animCobra);
+	objCobra.setSprite(&animCobra);
 	objCobra.setPosX(1000);
 	objCobra.setPoxY(200);
 
@@ -200,7 +195,7 @@ void init(void)
 	*/
 	layers.at(4).addGameObject(&objPerAndando);
 	layers.at(4).addGameObject(&objCobra);
-
+				
 	layers.at(0).computeScrollRateX(30);
 	layers.at(1).computeScrollRateX(50);
 	layers.at(2).computeScrollRateX(70);
@@ -208,8 +203,8 @@ void init(void)
 	layers.at(4).computeScrollRateX(110);
 
 
-	zBuffer = new char[layers.at(1).getBackground().getWidth()*layers.at(1).getBackground().getHeight()];
-	zBuffer2 = new char[layers.at(1).getBackground().getWidth()*layers.at(1).getBackground().getHeight()];
+	zBuffer = new char[layers.at(1).getBackground()->getWidth()*layers.at(1).getBackground()->getHeight()];
+	zBuffer2 = new char[layers.at(1).getBackground()->getWidth()*layers.at(1).getBackground()->getHeight()];
 
 
 }
@@ -224,9 +219,15 @@ void finalize(bool ganhou) {
 	else {
 		cout << "Voce perdeu." << endl;
 	}
+	dispose();
 	cout << endl << endl << "Enter para sair" << endl;
 	cin.get();
 	exit(0);
+}
+
+void dispose() {
+	delete zBuffer;
+	delete zBuffer2;
 }
 
 int main(int argc, char** argv)
@@ -234,18 +235,14 @@ int main(int argc, char** argv)
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
 	init();
-	validaColisao();
 	glutInitWindowSize(1500, 1500);
 	glutInitWindowPosition(0, 0);
 	glutCreateWindow("Processamento Grafico - GA");
 	glutDisplayFunc(display);
 	glutKeyboardFunc(keyboard);
 	update(1);
-	//updateScene(1);
 	glutMainLoop();
 
-	delete zBuffer;
-	delete zBuffer2;
 	return 0;   /* ISO C requires main to return int. */
 
 }
