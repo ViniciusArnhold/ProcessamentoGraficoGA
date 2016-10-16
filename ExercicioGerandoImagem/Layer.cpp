@@ -38,7 +38,7 @@ void Layer::scroll(bool right)
 void Layer::plot(Image * dest, char zBuffer[])
 {
 	int z = 0;
-	background.plotInto(dest, posX, posY,zBuffer,0);
+	background.plotInto(dest, 0, 0, zBuffer,0);
 	for (int i = 0; i < elements.size(); i++) {
 		elements.at(i)->getFrame()->plotInto(dest, elements.at(i)->getPosX(), elements.at(i)->getPosY(), zBuffer, 0);
 	}
