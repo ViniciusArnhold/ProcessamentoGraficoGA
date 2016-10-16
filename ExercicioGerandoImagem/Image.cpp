@@ -83,21 +83,19 @@ void Image::subImage(Image *src, int startx, int starty) {
 	}
 }
 
-void Image::plotInto(Image* sobreposta, int posicaoX, int posicaoY, char* zBuffer, char z)
+void Image::plotInto(Image* ref, int posicaoX, int posicaoY, char* zBuffer, char z)
 {
 	int xRef = 0;
 	int yRef = 0;
-
-	for (int x = posicaoX;x < sobreposta->getWidth() && x< this->width; x++) {
-
-		for (int y = posicaoY; y < sobreposta->getHeight() && y< this->height; y++) {
+	for (int x = posicaoX; x < ref->getWidth() && x < this->width; x++) {
+		for (int y = posicaoY; y < ref->getHeight() && y < this->height; y++) {
 			int alfa = (getPixel(x, y) >> 24) & 0xff;
 			if (alfa != 0) {
-				if (!alfa == 255) {
-					sobreposta->setPixel(calcularPixels(getPixel(x, y), sobreposta->getPixel(xRef, yRef)), xRef, yRef);
+				if (alfa != 255) {
+					ref->setPixel(calcularPixels(getPixel(x, y), ref->getPixel(xRef, yRef)), xRef, yRef);
 				}
 				else {
-					sobreposta->setPixel(getPixel(x, y), xRef, yRef);
+					ref->setPixel(getPixel(x, y), xRef, yRef);
 				}
 			}
 			yRef++;
