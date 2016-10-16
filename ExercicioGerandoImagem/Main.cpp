@@ -34,7 +34,7 @@ int xCobra = 300;
 int yCobra = 260;
 
 vector<Layer> layers;
-Image scene(1500, 600), backup;
+Image scene, backup;
 char *zBuffer, *zBuffer2;
 
 Animation animPerAndando = Animation();
@@ -83,9 +83,9 @@ void update(int value) {
 	glutPostRedisplay();
 	timer.finish();
 	int waitingTime = timer.calcWaitingTime(12, timer.getElapsedTimeMs());
-	cout << waitingTime << endl;
+	cout << "Updated with = " << waitingTime << endl;
 	if (playing) {
-		glutTimerFunc(10, update, 5);
+		glutTimerFunc(100, update, 5);
 	}
 }
 
@@ -96,17 +96,17 @@ void keyboard(unsigned char key, int x, int y) {
 		for (int i = 0; i < layers.size(); i++)
 		{
 			layers.at(i).scroll(true);
-			objCobra.setPosX(objCobra.getPosX() - 50);
 			validaColisao();
 		}
+		objCobra.setPosX(objCobra.getPosX() - 50);
 		break;
 	case 'a':
 		for (int i = 0; i < layers.size(); i++)
 		{
 			layers.at(i).scroll(false);
-			objCobra.setPosX(objCobra.getPosX() + 50);
 			validaColisao();
 		}
+		objCobra.setPosX(objCobra.getPosX() + 50);
 		break;
 	default:
 		break;
@@ -115,7 +115,7 @@ void keyboard(unsigned char key, int x, int y) {
 }
 
 void validaColisao() {
-	if (layers.at(4).getPosX()>5000) {
+	if (layers.at(4).getPosX() > 5000) {
 		finalize(true);
 	}
 	else if (!cobraEstaEscondia()) {
@@ -126,18 +126,16 @@ void validaColisao() {
 	}
 }
 
-bool cobraEstaEscondia() {//Algoritimo de colisao -> big O(11)
+bool cobraEstaEscondia() {//Algoritimo de colisao -> O(11)
 	int f = objCobra.getCurFrame();
 	return f == 13 || f == 14 || f == 15 || f == 16 || f == 17 || f == 18 || f == 19 || f == 20 || f == 21 || f == 22 || f == 23;
 }
 
 void init()
 {
-	/*  select clearing (background) color       */
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	/*  initialize viewing values  */
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(0.0, 1.0, 0.0, 1.0, -1.0, 1.0);
@@ -171,7 +169,7 @@ void init()
 	leitor.ler("..\\Imagens\\Andando.ptm");
 	Image backup = Image(xPA, yPA);
 	int size = leitor.getImage().getWidth();
-	for (int i = 0; i < size/xPA; i++) {
+	for (int i = 0; i < size / xPA; i++) {
 		leitor.getImage().subImage(&backup, i*xPA, 0);
 		animPerAndando.addFrame(backup);
 		backup = Image(xPA, yPA);
@@ -180,7 +178,7 @@ void init()
 	leitor.ler("..\\Imagens\\Cobras.ptm");
 	backup = Image(xCobra, yCobra);
 	size = leitor.getImage().getWidth();
-	for (int i = 0; i < size/xCobra; i++) {
+	for (int i = 0; i < size / xCobra; i++) {
 		leitor.getImage().subImage(&backup, i*xCobra, 0);
 		animCobra.addFrame(backup);
 		backup = Image(xCobra, yCobra);
@@ -197,7 +195,7 @@ void init()
 	*/
 	layers.at(4).addGameObject(&objPerAndando);
 	layers.at(4).addGameObject(&objCobra);
-				
+
 	layers.at(0).computeScrollRateX(30);
 	layers.at(1).computeScrollRateX(50);
 	layers.at(2).computeScrollRateX(70);
@@ -245,6 +243,6 @@ int main(int argc, char** argv)
 	update(1);
 	glutMainLoop();
 
-	return 0;   /* ISO C requires main to return int. */
+	return 0;
 
 }

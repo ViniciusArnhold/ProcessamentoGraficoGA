@@ -75,7 +75,7 @@ void Image::subImage(Image *src, int startx, int starty) {
 	int memoryStartY = starty;
 	for (int x = 0; x < src->getWidth(); x++) {
 		for (int y = 0; y < src->getHeight(); y++) {
-			src->setPixel(getPixel(startx,  starty), x, y);
+			src->setPixel(getPixel(startx, starty), x, y);
 			starty++;
 		}
 		startx++;
@@ -85,21 +85,19 @@ void Image::subImage(Image *src, int startx, int starty) {
 
 void Image::plotInto(Image* sobreposta, int posicaoX, int posicaoY, char* zBuffer, char z)
 {
-	/*
-		
 	int xRef = 0;
 	int yRef = 0;
 
-	for (int x = posicaoX; x < posicaoX + width && x < sobreposta->getWidth(); x++) {
-		
-		for (int y = posicaoY; y < posicaoY + height && y < sobreposta->getHeight(); y++) {
-			int alfa = (getPixel(xRef, yRef) >> 24) & 0xff;
-			if (!alfa == 0) {
+	for (int x = posicaoX;x < sobreposta->getWidth() && x< this->width; x++) {
+
+		for (int y = posicaoY; y < sobreposta->getHeight() && y< this->height; y++) {
+			int alfa = (getPixel(x, y) >> 24) & 0xff;
+			if (alfa != 0) {
 				if (!alfa == 255) {
-					sobreposta->setPixel(calcularPixels(getPixel(x,y), sobreposta->getPixel(xRef, yRef)), xRef, yRef);
+					sobreposta->setPixel(calcularPixels(getPixel(x, y), sobreposta->getPixel(xRef, yRef)), xRef, yRef);
 				}
 				else {
-					sobreposta->setPixel(getPixel(x,y), x, y);
+					sobreposta->setPixel(getPixel(x, y), xRef, yRef);
 				}
 			}
 			yRef++;
@@ -107,36 +105,7 @@ void Image::plotInto(Image* sobreposta, int posicaoX, int posicaoY, char* zBuffe
 		yRef = 0;
 		xRef++;
 	}
-	*/
-	int xThis = 0;
-	int yThis = 0;
 
-	for (int x = posicaoX; x < posicaoX + width && x < sobreposta->getWidth(); x++) {
-		for (int y = posicaoY; y < posicaoY + height && y < sobreposta->getHeight(); y++) {
-			int pixelThis = getPixel(xThis, yThis);
-			int alfa = (pixelThis >> 24) & 0xff;
-			if (alfa == 0) {
-
-			}
-			else
-			{
-				if (alfa == 255) {
-					sobreposta->setPixel(pixelThis, x, y);
-					//zBuffer[x + y*width] = z;
-				}
-				else
-				{
-
-					sobreposta->setPixel(sobreposta->calcularPixels(sobreposta->getPixel(x, y), pixelThis), x, y);
-
-				}
-			}
-			yThis++;
-		}
-		yThis = 0;
-		xThis++;
-
-	}
 }
 
 void Image::plot(Image sobreposta, int posicaoX, int posicaoY) {
