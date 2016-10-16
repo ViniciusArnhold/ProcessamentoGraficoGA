@@ -88,9 +88,9 @@ void Image::plotInto(Image* sobreposta, int posicaoX, int posicaoY, char* zBuffe
 	int xRef = 0;
 	int yRef = 0;
 
-	for (int x = posicaoX;x < sobreposta->getWidth() && x< this->width; x++) {
+	for (int x = posicaoX;x < sobreposta->getWidth()+posicaoX && x< this->width; x++) {
 
-		for (int y = posicaoY; y < sobreposta->getHeight() && y< this->height; y++) {
+		for (int y = posicaoY; y < sobreposta->getHeight()+posicaoY && y< this->height; y++) {
 			int alfa = (getPixel(x, y) >> 24) & 0xff;
 			if (alfa != 0) {
 				if (!alfa == 255) {
