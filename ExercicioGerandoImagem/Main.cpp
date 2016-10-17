@@ -83,7 +83,6 @@ void update(int value) {
 	glutPostRedisplay();
 	timer.finish();
 	int waitingTime = timer.calcWaitingTime(12, timer.getElapsedTimeMs());
-	cout << "Updated with = " << waitingTime << endl;
 	if (playing) {
 		glutTimerFunc(100, update, 5);
 	}
@@ -111,24 +110,30 @@ void keyboard(unsigned char key, int x, int y) {
 	default:
 		break;
 	}
-	cout << "Pessoa =" << objPerAndando.getPosX() << "Cobra = " << objCobra.getPosX() << endl;
 	glutPostRedisplay();
 }
 
 void validaColisao() {
+	int posPer = objPerAndando.getPosX();
+	int posCobra = objCobra.getPosX();
+	cout << "---------------" << endl;
+	cout << "posPer" << posPer << endl;
+	cout << "posCobra" << posCobra << endl;
+	cout << "widthCobra" << xCobra << endl;
+	cout << "Escondida " << (cobraEstaEscondia()) << endl;
+	cout << "---------------" << endl;
 	if (layers.at(4).getPosX() > 5000) {
 		finalize(true);
 	}
 	else if (!cobraEstaEscondia()) {
-		if (objPerAndando.getPosX() + objPerAndando.getFrame()->getWidth() > objCobra.getPosX()
-			&& (objCobra.getPosX() + objCobra.getFrame()->getWidth()) < objPerAndando.getPosX()) {
+		if (posPer>posCobra && posCobra+xCobra> posPer) {
 			finalize(false);
 		}
 	}
 }
 
 bool cobraEstaEscondia() {//Algoritimo de colisao -> O(11)
-	int f = objCobra.getCurFrame();
+	int f = objCobra.getCurFrameNum();
 	return f == 13 || f == 14 || f == 15 || f == 16 || f == 17 || f == 18 || f == 19 || f == 20 || f == 21 || f == 22 || f == 23;
 }
 

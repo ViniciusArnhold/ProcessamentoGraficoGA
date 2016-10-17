@@ -25,7 +25,7 @@ void GameObject::setSprite(Animation* anim)
 	this->anim = anim;
 }
 
-int GameObject::getCurFrame()
+int GameObject::getCurFrameNum()
 {
 	return currentFrame;
 }
