@@ -87,8 +87,10 @@ void Image::plotInto(Image* ref, int posicaoX, int posicaoY, char* zBuffer, char
 {
 	int xRef = 0;
 	int yRef = 0;
-	for (int x = posicaoX; x < ref->getWidth() && x < this->width; x++) {
-		for (int y = posicaoY; y < ref->getHeight() && y < this->height; y++) {
+
+	for (int x = posicaoX; x < ref->getWidth() + posicaoX && x < this->width; x++) {
+
+		for (int y = posicaoY; y < ref->getHeight() + posicaoY && y < this->height; y++) {
 			int alfa = (getPixel(x, y) >> 24) & 0xff;
 			if (alfa != 0) {
 				if (alfa != 255) {
@@ -106,14 +108,14 @@ void Image::plotInto(Image* ref, int posicaoX, int posicaoY, char* zBuffer, char
 
 }
 
-void Image::plot(Image sobreposta, int posicaoX, int posicaoY) {
+void Image::plot(Image* sobreposta, int posicaoX, int posicaoY) {
 
 	int xSobreposta = 0;
 	int ySobreposta = 0;
 
-	for (int x = posicaoX; x < sobreposta.width + posicaoX; x++) {
-		for (int y = posicaoY; y < posicaoY + sobreposta.height; y++) {
-			int pixelSobreposta = sobreposta.getPixel(xSobreposta, ySobreposta);
+	for (int x = posicaoX; x < sobreposta->width + posicaoX; x++) {
+		for (int y = posicaoY; y < posicaoY + sobreposta->height; y++) {
+			int pixelSobreposta = sobreposta->getPixel(xSobreposta, ySobreposta);
 			int alfa = (pixelSobreposta >> 24) & 0xff;
 			if (alfa == 0) {
 			}
