@@ -144,6 +144,9 @@ void validaColisao() {
 
 bool cobraEstaEscondia() {//Algoritimo de colisao -> O(11)
 	int f = objCobra.getCurFrameNum();
+	if (objCobra.getPosX() <= 0) {
+		objCobra.setPosX(1000);
+	}
 	return f == 13 || f == 14 || f == 15 || f == 16 || f == 17 || f == 18 || f == 19 || f == 20 || f == 21 || f == 22 || f == 23;
 }
 
