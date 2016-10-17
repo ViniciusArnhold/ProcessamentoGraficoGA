@@ -221,7 +221,8 @@ void init()
 	for (int i = 0; i < 1500 * 600; i++) {
 		zBuffer[i] = 6;
 		zBuffer2[i] = 6;
-	}
+	}
+
 
 }
 
