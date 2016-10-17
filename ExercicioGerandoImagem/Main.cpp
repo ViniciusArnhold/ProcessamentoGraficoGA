@@ -84,13 +84,16 @@ void display(void)
 void update(int value) {
 	timer.start();
 	objCobra.incCurrentFrame();
-	objPerAndando.incCurrentFrame();
+	if (objPerAndando.getCurFrameNum() != 0) {
+		objPerAndando.incCurrentFrame();
+	}
 	updateScene(1);
 	glutPostRedisplay();
 	timer.finish();
-	int waitingTime = timer.calcWaitingTime(12, timer.getElapsedTimeMs());
+	validaColisao();
+	int waitingTime = timer.calcWaitingTime(24, timer.getElapsedTimeMs());
 	if (playing) {
-		glutTimerFunc(100, update, 5);
+		glutTimerFunc(waitingTime, update, 5);
 	}
 }
 
@@ -101,7 +104,6 @@ void keyboard(unsigned char key, int x, int y) {
 		for (int i = 0; i < layers.size(); i++)
 		{
 			layers.at(i).scroll(true);
-			validaColisao();
 		}
 		objCobra.setPosX(objCobra.getPosX() - 50);
 		break;
@@ -109,12 +111,14 @@ void keyboard(unsigned char key, int x, int y) {
 		for (int i = 0; i < layers.size(); i++)
 		{
 			layers.at(i).scroll(false);
-			validaColisao();
 		}
 		objCobra.setPosX(objCobra.getPosX() + 50);
 		break;
 	default:
 		break;
+	}
+	if (objPerAndando.getCurFrameNum() == 0) {
+		objPerAndando.incCurrentFrame();
 	}
 	glutPostRedisplay();
 }
@@ -128,7 +132,7 @@ void validaColisao() {
 	cout << "widthCobra" << xCobra << endl;
 	cout << "Escondida " << (cobraEstaEscondia()) << endl;
 	cout << "---------------" << endl;
-	if (layers.at(4).getPosX() > 5000) {
+	if (objPerAndando.getPosX()>3000) {
 		finalize(true);
 	}
 	else if (!cobraEstaEscondia()) {
