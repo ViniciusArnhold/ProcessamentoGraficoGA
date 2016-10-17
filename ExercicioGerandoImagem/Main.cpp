@@ -11,7 +11,7 @@
 #include <Windows.h>
 #include <GL/gl.h>
 #include <GL/glut.h>
-#include  <stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include "Image.h"
 #include "PTMReader.h"
@@ -34,26 +34,21 @@ int xCobra = 300;
 int yCobra = 260;
 
 vector<Layer> layers;
-Image scene, backup;
+Image scene(1500, 600), backup;
 char *zBuffer, *zBuffer2;
 
 Animation animPerAndando = Animation();
-Animation animPerPulando = Animation();
 Animation animCobra = Animation();
-Animation animCaixa = Animation();
-Animation animSpike = Animation();
 
-GameObject objPerPulando = GameObject();
 GameObject objPerAndando = GameObject();
 GameObject objCobra = GameObject();
-GameObject objCaixa = GameObject();
-GameObject objSpike = GameObject();
 Timer timer = Timer();
 
 PTMReader leitor = PTMReader();
 Layer layer = Layer();
 
 bool playing = true;
+int passos = 0;
 
 bool cobraEstaEscondia();
 void validaColisao();
@@ -61,10 +56,10 @@ void finalize(bool ganhou);
 void dispose();
 
 void updateScene(int value) {
-	scene = Image(1500, 600);
+	//scene = Image(1500, 600);
 	int z = 5;
 	for (int i = 0; i < layers.size(); i++) {
-		layers.at(i).plot(&scene, zBuffer,z);
+		layers.at(i).plot(&scene, zBuffer, z);
 		z--;
 	}
 	for (int i = 0; i < 1500 * 600; i++) {
@@ -89,12 +84,13 @@ void update(int value) {
 	}
 	updateScene(1);
 	glutPostRedisplay();
-	timer.finish();
 	validaColisao();
-	int waitingTime = timer.calcWaitingTime(24, timer.getElapsedTimeMs());
-	if (playing) {
-		glutTimerFunc(waitingTime, update, 5);
+	timer.finish();
+	int waitingTime = timer.calcWaitingTime(60, timer.getElapsedTimeMs());
+	if (!playing) {
+		playing = true;
 	}
+	glutTimerFunc(waitingTime, update, 5);
 }
 
 void keyboard(unsigned char key, int x, int y) {
@@ -103,6 +99,10 @@ void keyboard(unsigned char key, int x, int y) {
 	case 'd':
 		for (int i = 0; i < layers.size(); i++)
 		{
+			if (playing) {
+				passos++;
+				playing = false;
+			}
 			layers.at(i).scroll(true);
 		}
 		objCobra.setPosX(objCobra.getPosX() - 50);
@@ -110,6 +110,10 @@ void keyboard(unsigned char key, int x, int y) {
 	case 'a':
 		for (int i = 0; i < layers.size(); i++)
 		{
+			if (playing) {
+				passos == 0 ? passos = 0 : passos--;
+				playing = false;
+			}
 			layers.at(i).scroll(false);
 		}
 		objCobra.setPosX(objCobra.getPosX() + 50);
@@ -126,27 +130,21 @@ void keyboard(unsigned char key, int x, int y) {
 void validaColisao() {
 	int posPer = objPerAndando.getPosX();
 	int posCobra = objCobra.getPosX();
-	cout << "---------------" << endl;
-	cout << "posPer" << posPer << endl;
-	cout << "posCobra" << posCobra << endl;
-	cout << "widthCobra" << xCobra << endl;
-	cout << "Escondida " << (cobraEstaEscondia()) << endl;
-	cout << "---------------" << endl;
-	if (objPerAndando.getPosX()>3000) {
+	if (passos >= 63) {
 		finalize(true);
 	}
 	else if (!cobraEstaEscondia()) {
-		if (posPer>posCobra && posCobra+xCobra> posPer) {
+		if (posPer > posCobra && (posCobra + xCobra) > posPer) {
 			finalize(false);
 		}
 	}
 }
 
 bool cobraEstaEscondia() {//Algoritimo de colisao -> O(11)
-	int f = objCobra.getCurFrameNum();
 	if (objCobra.getPosX() <= 0) {
 		objCobra.setPosX(1000);
 	}
+	int f = objCobra.getCurFrameNum();
 	return f == 13 || f == 14 || f == 15 || f == 16 || f == 17 || f == 18 || f == 19 || f == 20 || f == 21 || f == 22 || f == 23;
 }
 
@@ -235,6 +233,7 @@ void init()
 
 void finalize(bool ganhou) {
 	playing = false;
+	system("CLS");
 	glutHideWindow();
 	cout << endl << endl << endl << endl << endl << endl << endl << endl;
 	if (ganhou) {
@@ -243,6 +242,7 @@ void finalize(bool ganhou) {
 	else {
 		cout << "Voce perdeu." << endl;
 	}
+	cout << "Voce sobreviveu " << passos << " passos" << endl << endl << endl;
 	dispose();
 	cout << endl << endl << "Enter para sair" << endl;
 	cin.get();
@@ -258,7 +258,17 @@ int main(int argc, char** argv)
 {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+	cout << "Bem vindo!" << endl << endl;
+	cout << "----------------------------------------------------------" << endl;
+	cout << "O objetivo do jogo e chegar a estrada que leva a cidade." << endl;
+	cout << "Cuidado! Os aldeoes dizem que existem cobras pelo caminho." << endl << endl;
+	cout << "Boa sorte" << endl;
+	cout << "----------------------------------------------------------" << endl;
+	cin.get();
+	cout << endl << endl << endl << endl;
+
 	init();
+
 	glutInitWindowSize(1500, 1500);
 	glutInitWindowPosition(0, 0);
 	glutCreateWindow("Processamento Grafico - GA");

@@ -48,27 +48,17 @@ void PTMReader::ler(char* caminho)
 	//Tamanho arquivo
 	char textBuffer[256];
 
-	cout << "Leitor de arquivo PTM.";
 	input >> textBuffer;//Primeira linha
-	cout << "Tipo de Arquivo: " << textBuffer << endl;
 
 	input >> textBuffer;//Segunda linha
 	str = textBuffer;
 	largura = stoi(str);
-	cout << "Largura: " << largura << endl;
 
 	input >> textBuffer;//Terceira linha
 	str = textBuffer;
 	altura = stoi(str);
-	cout << "Altura: " << altura << endl;
 
 	input >> textBuffer;//Quarta linha
-	cout << "Numero de cores: " << textBuffer << endl;
-
-	cout << endl <<
-		    "  ---------------------  " << endl;
-	cout << "Iniciando leitura binaria" << endl;
-	cout << "  ---------------------  " << endl << endl;
 
 	img = Image(largura, altura);
 
@@ -97,6 +87,6 @@ void PTMReader::ler(char* caminho)
 		}
 	}
 
-	cout << "Arquivo " << caminho << "terminou de ser lido.";
+	cout << "Arquivo " << caminho << "terminou de ser lido." << endl;
 
 }
