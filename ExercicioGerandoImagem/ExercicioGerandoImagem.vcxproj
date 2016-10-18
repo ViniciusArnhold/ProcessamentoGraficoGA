@@ -128,15 +128,8 @@
     <ClCompile Include="PTMReader.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\Imagens\montanhas.ptm">
-      <FileType>Document</FileType>
-    </Image>
-    <Image Include="..\Imagens\T-rex.ptm">
-      <FileType>Document</FileType>
-    </Image>
     <None Include="..\Imagens\Andando.ptm" />
     <None Include="..\Imagens\Cobras.ptm" />
-    <None Include="..\Imagens\Pulando.ptm" />
     <None Include="..\Imagens\zMinus0.ptm" />
     <None Include="..\Imagens\zMinus1.ptm" />
     <None Include="..\Imagens\zMinus2.ptm" />

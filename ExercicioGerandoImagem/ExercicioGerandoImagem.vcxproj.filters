@@ -84,16 +84,5 @@
     <None Include="..\Imagens\Cobras.ptm">
       <Filter>Imagens</Filter>
     </None>
-    <None Include="..\Imagens\Pulando.ptm">
-      <Filter>Imagens</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\Imagens\montanhas.ptm">
-      <Filter>Imagens</Filter>
-    </Image>
-    <Image Include="..\Imagens\T-rex.ptm">
-      <Filter>Imagens</Filter>
-    </Image>
   </ItemGroup>
 </Project>
